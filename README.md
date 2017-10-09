@@ -10,7 +10,7 @@ docker-compose
 ### start elasticsearch<br>
 <code># sudo docker-compose up<br></code>
 ### get access to container
- <code># sudo docker exec -it [container-id] bash</code>
+<code># sudo docker exec -it [container-id] bash</code>
 ### default login
 https://www.elastic.co/guide/en/x-pack/current/setting-up-authentication.html#built-in-users
 ### problems
@@ -18,3 +18,13 @@ exit code 78: https://www.elastic.co/guide/en/elasticsearch/reference/current/vm
 # Useful links
 https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
 https://docs.docker.com/compose/django/
+
+
+# Elasticsearch
+### helpful commands
+Health of Elasticsearch
+<code># curl -XGET -u elastic 'localhost:9200/_cat/health?v&pretty'</code>
+All nodes
+<code># curl -XGET -u elastic 'localhost:9200/_cat/nodes?v'</code>
+All indices
+<code># curl -XGET -u elastic 'localhost:9200/_cat/indices?v'</code>
