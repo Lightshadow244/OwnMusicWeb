@@ -22,9 +22,9 @@ https://docs.docker.com/compose/django/
 
 # Elasticsearch
 ### helpful commands
-Health of Elasticsearch
-<code># curl -XGET -u elastic 'localhost:9200/_cat/health?v&pretty'</code>
-All nodes
-<code># curl -XGET -u elastic 'localhost:9200/_cat/nodes?v'</code>
-All indices
-<code># curl -XGET -u elastic 'localhost:9200/_cat/indices?v'</code>
+Health of Elasticsearch<br>
+<code># curl -XGET -u elastic 'localhost:9200/_cat/health?v&pretty'</code><br>
+All nodes<br>
+<code># curl -XGET -u elastic 'localhost:9200/_cat/nodes?v'</code><br>
+All indices<br>
+<code># curl -XGET -u elastic 'localhost:9200/_cat/indices?v'</code><br>
