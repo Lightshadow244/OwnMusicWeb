@@ -29,6 +29,8 @@ All nodes<br>
 All indices<br>
 <code># curl -XGET -u elastic 'localhost:9200/_cat/indices?v'</code><br>
 Create index<br>
-<code>curl -XPUT -u elastic 'localhost:9200/customer?pretty&pretty'</code><br>
+<code># curl -XPUT -u elastic 'localhost:9200/customer?pretty&pretty'</code><br>
 Create document in index: "customer" with type: "external"<br> with id: "1"
-<code>curl -XPUT -u elastic 'localhost:9200/customer/external/1?pretty&pretty' -H 'Content-Type: application/json' -d' {"name": "John Doe"}'</code>
+<code># curl -XPUT -u elastic 'localhost:9200/customer/external/1?pretty&pretty' -H 'Content-Type: application/json' -d' {"name": "John Doe"}'</code><br>
+get document with index: "customer" type:"external" id: "1"<br>
+<code># curl -XGET 'localhost:9200/customer/external/1?pretty&pretty'
