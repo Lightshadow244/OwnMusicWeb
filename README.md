@@ -33,7 +33,7 @@ Create index<br>
 Create document in index: "customer" with type: "external" with id: "1"
 <code># curl -XPUT -u elastic 'localhost:9200/customer/external/1?pretty&pretty' -H 'Content-Type: application/json' -d' {"name": "John Doe"}'</code><br>
 get document with index: "customer" type:"external" id: "1"<br>
-<code># curl -XGET 'localhost:9200/customer/external/1?pretty&pretty'<br>
+<code># curl -XGET 'localhost:9200/customer/external/1?pretty&pretty'</code><br>
 delete index customer
 <code>curl -XDELETE -u elastic 'localhost:9200/customer?pretty&pretty'</code><br>
 delete document<br>
