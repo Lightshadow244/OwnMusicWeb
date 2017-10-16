@@ -35,4 +35,8 @@ Create document in index: "customer" with type: "external" with id: "1"
 get document with index: "customer" type:"external" id: "1"<br>
 <code># curl -XGET 'localhost:9200/customer/external/1?pretty&pretty'<br>
 delete index customer
-<code>curl -XDELETE -u elastic 'localhost:9200/customer?pretty&pretty'</code>
+<code>curl -XDELETE -u elastic 'localhost:9200/customer?pretty&pretty'</code><br>
+update document<br>
+<code>curl -XPOST -u elastic 'localhost:9200/customer/external/2/_update?pretty&pretty' -H 'Content-Type: application/json' -d' { "doc": { "name": "Ute Luedtke", "age": 49 }}'</code><br>
+update document with simple script<br>
+<code>curl -XPOST 'localhost:9200/customer/external/2/_update?pretty&pretty' -H 'Content-Type: application/json' -d' { "script" : "ctx._source.age += 5"}'</code>
