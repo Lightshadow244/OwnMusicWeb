@@ -7,6 +7,7 @@ docker-compose
 # Getting started
 ### clone repo
 <code># git clone https://github.com/Lightshadow244/OwnMusicWeb.git</code>
+# Elasticsearch
 ### start elasticsearch<br>
 <code># sudo docker-compose up<br></code>
 ### get access to container
@@ -15,12 +16,7 @@ docker-compose
 https://www.elastic.co/guide/en/x-pack/current/setting-up-authentication.html#built-in-users
 ### problems
 exit code 78: https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
-# Useful links
-https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
-https://docs.docker.com/compose/django/
 
-
-# Elasticsearch
 ### helpful commands
 Health of Elasticsearch<br>
 <code># curl -XGET -u elastic 'localhost:9200/_cat/health?v&pretty'</code><br>
@@ -53,4 +49,10 @@ base for complex search<br>
 '
 </code>
 
-#Test
+#Django
+https://docs.djangoproject.com/en/1.11/intro/tutorial01/
+You need pip, virtualvenv.
+
+# Useful links
+https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
+https://docs.docker.com/compose/django/
