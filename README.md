@@ -63,6 +63,16 @@ create alias
 #### pip upgrade
 <code>sudo -H pip3 install --upgrade pip</code><br>
 
+### virtualenv
+#### create ENV
+<code> # virtualenv ENV</code>
+
+#### activate ENV
+<code> # source ~/ENV/bin/activate</code>
+
+#### disable ENV
+<code> # deactivate</code>
+
 # Useful links
 https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
 https://docs.docker.com/compose/django/
