@@ -56,6 +56,13 @@ pip, virtualenv
 ### First Project + Installation
 https://docs.djangoproject.com/en/1.11/intro/tutorial01/<br>
 
+### Problems during installation
+#### using pip with python3
+create alias 
+<code>python3 -m pip BEFEHL</code>
+#### pip upgrade
+<code>sudo -H pip3 install --upgrade pip</code><br>
+
 # Useful links
 https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
 https://docs.docker.com/compose/django/
