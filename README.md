@@ -1,13 +1,14 @@
 # OwnMusicWeb
 A website where you can manage and listen your own music.
 
-# Requirements
-docker-compose
+
 
 # Getting started
 ### clone repo
 <code># git clone https://github.com/Lightshadow244/OwnMusicWeb.git</code>
 # Elasticsearch
+### Requirements
+docker-compose
 ### start elasticsearch<br>
 <code># sudo docker-compose up<br></code>
 ### get access to container
@@ -49,9 +50,11 @@ base for complex search<br>
 '
 </code>
 
-#Django
-https://docs.djangoproject.com/en/1.11/intro/tutorial01/
-You need pip, virtualvenv.
+# Django
+### Requirements
+pip, virtualenv
+### First Project + Installation
+https://docs.djangoproject.com/en/1.11/intro/tutorial01/<br>
 
 # Useful links
 https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
