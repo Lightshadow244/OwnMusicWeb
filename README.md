@@ -73,6 +73,9 @@ create alias
 #### disable ENV
 <code> # deactivate</code>
 
+### install Django
+<code> # pip install Django </code>
+
 # Useful links
 https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
 https://docs.docker.com/compose/django/
