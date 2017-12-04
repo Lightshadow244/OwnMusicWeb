@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['192.168.1.107']
 # Application definition
 
 INSTALLED_APPS = [
-    'elastic.apps.ElasticConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
