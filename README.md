@@ -1,12 +1,14 @@
 # OwnMusicWeb
 A website where you can manage and listen your own music.
 
-# Requirements
-docker-compose
+
 
 # Getting started
 ### clone repo
 <code># git clone https://github.com/Lightshadow244/OwnMusicWeb.git</code>
+# Elasticsearch
+### Requirements
+docker-compose
 ### start elasticsearch<br>
 <code># sudo docker-compose up<br></code>
 ### get access to container
@@ -15,12 +17,7 @@ docker-compose
 https://www.elastic.co/guide/en/x-pack/current/setting-up-authentication.html#built-in-users
 ### problems
 exit code 78: https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
-# Useful links
-https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
-https://docs.docker.com/compose/django/
 
-
-# Elasticsearch
 ### helpful commands
 Health of Elasticsearch<br>
 <code># curl -XGET -u elastic 'localhost:9200/_cat/health?v&pretty'</code><br>
@@ -52,3 +49,33 @@ base for complex search<br>
 }
 '
 </code>
+
+# Django
+### Requirements
+pip, virtualenv
+### First Project + Installation
+https://docs.djangoproject.com/en/1.11/intro/tutorial01/<br>
+
+### Problems during installation
+#### using pip with python3
+create alias 
+<code>python3 -m pip BEFEHL</code>
+#### pip upgrade
+<code>sudo -H pip3 install --upgrade pip</code><br>
+
+### virtualenv
+#### create ENV
+<code> # virtualenv ENV</code>
+
+#### activate ENV
+<code> # source ~/ENV/bin/activate</code>
+
+#### disable ENV
+<code> # deactivate</code>
+
+### install Django
+<code> # pip install Django </code>
+
+# Useful links
+https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html<br>
+https://docs.docker.com/compose/django/
