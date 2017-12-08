@@ -55,6 +55,22 @@ base for complex search<br>
 pip, virtualenv
 ### First Project + Installation
 https://docs.djangoproject.com/en/1.11/intro/tutorial01/<br>
+### Summary
+install virtualenv
+install pip
+
+create virtualenv <code> # virtualenv /home/user/ENV</code><br>
+activate virtualenv <code> # source /home/user//ENV/bin/activate</code><br>
+<br>
+update pip <code># pip install --upgrade pip</code><br>
+install django <code># pip install Django</code><br>
+<br>
+set music folder <code># nano ownmusicweb/settings.py</code><br>
+STATICFILES_DIRS -> Folder with music<br>
+first song should be named "hund.mp3"<br>
+<br>
+start server <code># python /home/user/ownmusicweb/ownmusicweb/manage.py runserver 0.0.0.0:8000</code><br>
+navigate to player in browser<code>0.0.0.0:8000/player</code>
 
 ### Problems during installation
 #### using pip with python3
@@ -62,6 +78,7 @@ create alias
 <code>python3 -m pip BEFEHL</code>
 #### pip upgrade
 <code>sudo -H pip3 install --upgrade pip</code><br>
+
 
 ### virtualenv
 #### create ENV
