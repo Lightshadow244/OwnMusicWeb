@@ -3,5 +3,5 @@ import sqlite3
 conn=sqlite3.connect('../db.sqlite3')
 c = conn.cursor()
 
-c.execute('select * from album')
+c.execute('select * from player_album')
 print(c.fetchone())
