@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 class Album(models.Model):
-    album_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=125)
     author = models.CharField(max_length=125)
     release_date = models.DateField()
