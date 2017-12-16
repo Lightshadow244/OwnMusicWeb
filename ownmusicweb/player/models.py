@@ -13,7 +13,7 @@ class album(models.Model):
     def give_release_date(self):
         return self.release_date
 
-class Song(models.Model):
+class song(models.Model):
     name = models.CharField(max_length=125)
     album_id = models.ForeignKey(album, on_delete=models.CASCADE, default=0)
     change_date = models.DateField()
