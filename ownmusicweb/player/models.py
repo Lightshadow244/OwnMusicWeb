@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class album(models.Model):
+class Album(models.Model):
     album_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=125)
     author = models.CharField(max_length=125)
@@ -13,7 +13,7 @@ class album(models.Model):
     def give_release_date(self):
         return self.release_date
 
-class song(models.Model):
+class Song(models.Model):
     name = models.CharField(max_length=125)
     album_id = models.ForeignKey(album, on_delete=models.CASCADE, default=0)
     change_date = models.DateField()
