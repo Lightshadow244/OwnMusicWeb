@@ -15,7 +15,7 @@ class Song(models.Model):
     def give_path(self):
         return self.audio_file
 
-class album(models.Model)
+class album(models.Model):
     album_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=125)
     author = models.CharField(max_length=125)
