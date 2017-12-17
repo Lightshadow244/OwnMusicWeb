@@ -78,6 +78,9 @@ create alias
 <code>python3 -m pip BEFEHL</code>
 #### pip upgrade
 <code>sudo -H pip3 install --upgrade pip</code><br>
+#### windows
+pip install python_magic_bin-0.4.14-py2.py3-none-win32.whl
+https://github.com/ahupp/python-magic#dependencies<br>
 
 
 ### virtualenv
