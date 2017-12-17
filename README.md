@@ -52,7 +52,7 @@ base for complex search<br>
 
 # Django
 ### Requirements
-pip, virtualenv
+pip, virtualenv, eyeD3
 ### First Project + Installation
 https://docs.djangoproject.com/en/1.11/intro/tutorial01/<br>
 ### Summary
