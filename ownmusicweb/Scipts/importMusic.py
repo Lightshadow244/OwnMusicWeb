@@ -21,9 +21,10 @@ def scan_for_music(p):
 
             #Exist Song? No? Then insert song.
             c.execute('select change_date from player_song where name =?', (file,))
-            if c.fetchone() == None:
+            change_date_current_song = c.fetchone()
+            if change_date_db == None:
                 #Is there an album for this song? No? than insert album
-                c.execute('select * from player_album where name=?', (af.tag.album,))
+                c.execute('select name from player_album where name=?', (af.tag.album,))
                 if c.fetchone() == None:
                     #print(af.tag.getBestDate())
                     c.execute("insert into player_album(name, author, release_date) values(?,?,?)", (af.tag.album, af.tag.artist, af.tag.release_date,))
@@ -31,6 +32,17 @@ def scan_for_music(p):
                 album_id = c.fetchone()
                 c.execute('insert into player_song(name, audio_file, change_date, album_id) values(?,?,?,?)', (file, file_path, os.path.getmtime(file_path), album_id,))
                 print(file + ' created')
+            #if song exists, check change_date
+            else:
+                #if different then update song
+                if change_date_db != :
+                    c.execute('update into play_song (name, audio_file, change_date, album_id) values(?,?,?,?) where name= ?', (file, file_path, os.path.getmtime(file_path), album_id,file,))
+
+            #look change from folder and compare it with first song from folder in db
+            for folder in os.listdir(p):
+                c.execute('')#get change date from first song)
+                x= c.fetchone()
+                if os.listdir(os.path.join(p, folder)). != x
 
 scan_for_music(path)
 conn.close()
