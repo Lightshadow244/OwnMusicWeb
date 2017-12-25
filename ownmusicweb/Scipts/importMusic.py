@@ -1,5 +1,5 @@
 # import music, infomations and the path into the database
-import sqlite3, eyed3, os
+import sqlite3, eyed3, os, datetime
 eyed3.log.setLevel("ERROR")
 
 path = 'C:/Users/Richii/Music'
@@ -10,9 +10,10 @@ c = conn.cursor()
 def scan_for_music(p):
     for file in os.listdir(p):
         file_path = os.path.join(p, file)
+        file_change_date = datetime.date.fromtimestamp(os.path.getmtime(file_path)).strftime('%Y-%m-%d')
         if file.endswith(".mp3") or file.endswith(".wma"):
             af = eyed3.load(file_path)
-
+            #print(file_change_date)
             #Has the file an album Tag? No? Then the album is 'unbekannt'
             if af.tag.album == None:
                 af.tag.album = 'Unbekannt'
@@ -21,28 +22,41 @@ def scan_for_music(p):
 
             #Exist Song? No? Then insert song.
             c.execute('select change_date from player_song where name =?', (file,))
-            change_date_current_song = c.fetchone()
-            if change_date_db == None:
+            db_change_date = c.fetchone()
+            if db_change_date == None:
                 #Is there an album for this song? No? than insert album
                 c.execute('select name from player_album where name=?', (af.tag.album,))
                 if c.fetchone() == None:
-                    #print(af.tag.getBestDate())
-                    c.execute("insert into player_album(name, author, release_date) values(?,?,?)", (af.tag.album, af.tag.artist, af.tag.release_date,))
+                    file_album_date = str(af.tag.getBestDate())
+                    #print(file_album_date)
+                    c.execute("insert into player_album(name, author, release_date) values(?,?,?)", (af.tag.album, af.tag.artist, file_album_date,))
+
                 c.execute('select id from player_album where name=?', (af.tag.album,))
-                album_id = c.fetchone()
-                c.execute('insert into player_song(name, audio_file, change_date, album_id) values(?,?,?,?)', (file, file_path, os.path.getmtime(file_path), album_id,))
-                print(file + ' created')
+                db_album_id = c.fetchone()
+                c.execute("insert into player_song(name, audio_file, change_date, album_id) values(?,?,?,?)", (file, file_path, file_change_date, db_album_id[0],))
+                print('insert song ' + file + ' successful')
             #if song exists, check change_date
             else:
                 #if different then update song
-                if change_date_db != :
-                    c.execute('update into play_song (name, audio_file, change_date, album_id) values(?,?,?,?) where name= ?', (file, file_path, os.path.getmtime(file_path), album_id,file,))
+                if db_change_date != file_change_date:
+                    c.execute('update play_song set name=?, audio_file=?, change_date=?, album_id=? where name= ?', (file, file_path, file_change_date, db_album_id[0],file,))
 
             #look change from folder and compare it with first song from folder in db
-            for folder in os.listdir(p):
-                c.execute('')#get change date from first song)
-                x= c.fetchone()
-                if os.listdir(os.path.join(p, folder)). != x
+            for sub_folder in os.listdir(p):
+                sub_path = os.path.join(p, sub_folder)
+                if os.path.isdir(sub_path):
+                    sub_folder_change_date = datetime.datetime.fromtimestamp(os.path.getmtime(sub_path)).strftime('%Y-%m-%d')
+                    #get first file change date
+                    for file in os.listdir(sub_path):
+                        if file.endswith(".mp3"):
+                            sub_file_path = os.path.join(sub_path, file)
+                            sub_file_name = file
+                        break
+
+                    c.execute('select change_date from player_song where name =?', (sub_file_name,))#get change date from first song
+                    sub_db_change_date = c.fetchone()
+                    if sub_folder_change_date != sub_db_change_date:
+                        scan_for_music(sub_path)
 
 scan_for_music(path)
 conn.close()
