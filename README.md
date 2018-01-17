@@ -65,12 +65,18 @@ activate virtualenv <code> # source /home/user//ENV/bin/activate</code><br>
 update pip <code># pip install --upgrade pip</code><br>
 install django <code># pip install Django</code><br>
 <br>
+
+`python manage.py migrate`
+
+add localhost to allowed hosts in ./ownmusicweb/settings.py
+
 set music folder <code># nano ownmusicweb/settings.py</code><br>
 STATICFILES_DIRS -> Folder with music<br>
 first song should be named "hund.mp3"<br>
 <br>
 start server <code># python /home/user/ownmusicweb/ownmusicweb/manage.py runserver 0.0.0.0:8000</code><br>
 navigate to player in browser<code>0.0.0.0:8000/player</code>
+
 
 ### Problems during installation
 #### using pip with python3
