@@ -56,7 +56,10 @@ exit code 78: https://www.elastic.co/guide/en/elasticsearch/reference/current/vm
 
 # Django
 ### Requirements
-pip, virtualenv, eyeD3
+pip, virtualenv
+
+### pip requirements
+djangorestframework, markdown, django-filter, eyeD3
 
 ### First Project + Installation
 https://docs.djangoproject.com/en/1.11/intro/tutorial01/
@@ -68,9 +71,13 @@ create virtualenv `virtualenv /home/user/ENV`
 activate virtualenv `source /home/user//ENV/bin/activate`
 
 install pip
-update pip ` pip install --upgrade pip`
-install django ` pip install Django`
+
+update pip `pip install --upgrade pip`
+
+install django `pip install Django`
+
 install eyeD3 `pip install eyeD3`
+
 install everything for REST `pip install djangorestframework markdown django-filter`
 
 `python manage.py migrate`
