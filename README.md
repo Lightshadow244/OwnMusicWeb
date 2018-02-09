@@ -23,28 +23,27 @@ https://www.elastic.co/guide/en/x-pack/current/setting-up-authentication.html#bu
 ### problems
 exit code 78: https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 
-### helpful commands
-####Health of Elasticsearch
+#### Health of Elasticsearch
 `curl -XGET -u elastic 'localhost:9200/_cat/health?v&pretty'`
-####All nodes
+#### All nodes
 `curl -XGET -u elastic 'localhost:9200/_cat/nodes?v'`
-####All indices
+#### All indices
 `curl -XGET -u elastic 'localhost:9200/_cat/indices?v'`
-####Create index
+#### Create index
 `curl -XPUT -u elastic 'localhost:9200/customer?pretty&pretty'`
-####Create document in index: "customer" with type: "external" with id: "1"
+#### Create document in index: "customer" with type: "external" with id: "1"
 `curl -XPUT -u elastic 'localhost:9200/customer/external/1?pretty&pretty' -H 'Content-Type: application/json' -d' {"name": "John Doe"}'`
-####get document with index: "customer" type:"external" id: "1"
+#### get document with index: "customer" type:"external" id: "1"
 `curl -XGET 'localhost:9200/customer/external/1?pretty&pretty'`
-####delete index customer
+#### delete index customer
 `curl -XDELETE -u elastic 'localhost:9200/customer?pretty&pretty'`
-####delete document
+#### delete document
 `curl -XDELETE -u elastic 'localhost:9200/customer/external/2?pretty&pretty'`
-####update document
+#### update document
 `curl -XPOST -u elastic 'localhost:9200/customer/external/2/_update?pretty&pretty' -H 'Content-Type: application/json' -d' { "doc": { "name": "Ute Luedtke", "age": 49 }}'`
-####update document with simple script
+#### update document with simple script
 `curl -XPOST -u elastic 'localhost:9200/customer/external/2/_update?pretty&pretty' -H 'Content-Type: application/json' -d' { "script" : "ctx._source.age += 5"}'`
-####base for complex search
+#### base for complex search
 `curl -XGET 'localhost:9200/bank/_search?pretty' -H 'Content-Type: application/json' -d'
 {
   "query": { "match_all": {} },
@@ -64,8 +63,9 @@ https://docs.djangoproject.com/en/1.11/intro/tutorial01/
 ### Summary
 install virtualenv
 
-create virtualenv ` # virtualenv /home/user/ENV`
-activate virtualenv ` # source /home/user//ENV/bin/activate`
+create virtualenv `virtualenv /home/user/ENV`
+
+activate virtualenv `source /home/user//ENV/bin/activate`
 
 install pip
 update pip ` pip install --upgrade pip`
@@ -98,16 +98,16 @@ https://github.com/ahupp/python-magic#dependencies
 
 ### virtualenv
 #### create ENV
-` # virtualenv ENV`
+`virtualenv ENV`
 
 #### activate ENV
-` # source ~/ENV/bin/activate`
+`source ~/ENV/bin/activate`
 
 #### disable ENV
-` # deactivate`
+`deactivate`
 
 ### install Django
-` # pip install Django `
+`pip install Django `
 
 # Useful links
 https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
