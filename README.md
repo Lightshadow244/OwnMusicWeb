@@ -68,9 +68,8 @@ install virtualenv
 
 create virtualenv `virtualenv /home/user/ENV`
 
-activate virtualenv `source /home/user//ENV/bin/activate`
+activate virtualenv `source /home/user/ENV/bin/activate`
 
-install pip
 
 update pip `pip install --upgrade pip`
 
