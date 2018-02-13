@@ -1,4 +1,5 @@
 from django.db import models
+import django
 
 # Create your models here.
 class Album(models.Model):
@@ -17,7 +18,7 @@ class Song(models.Model):
     #foreign key create a field in Album song_set. To get all Songs from a Album use
     # a = Album.objects.get(album_id=0); a.song_set.all()
     album = models.ForeignKey(Album, on_delete=models.CASCADE, default=0)
-    change_date = models.DateField()
+    change_date = models.DateField(django.utils.timezone.now)
     audio_file = models.FileField()
     def __str__(self):
         return self.name
