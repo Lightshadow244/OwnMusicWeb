@@ -90,11 +90,14 @@ first song should be named "hund.mp3"
 start server `python /home/user/ownmusicweb/ownmusicweb/manage.py runserver 0.0.0.0:8000`
 navigate to player in browser`0.0.0.0:8000/player`
 
-#REST
+# REST
 for more information see files:
-rest/serializer.py
-rest/views.py
-ownmusicweb/urls.py
+
+`rest/serializer.py`
+
+`rest/views.py`
+
+`ownmusicweb/urls.py`
 
 ### Problems during installation
 #### using pip with python3
