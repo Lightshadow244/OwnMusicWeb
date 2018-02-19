@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['192.168.1.107']
 
 INSTALLED_APPS = [
     'player.apps.PlayerConfig',
+    'rest.apps.RestConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
