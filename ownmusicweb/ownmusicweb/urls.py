@@ -2,6 +2,11 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from rest import views
 
+#Uncomment the next two lines to enable the admin:
+from django.contrib import admin
+admin.autodiscover()
+
+
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'album', views.AlbumViewSet)
