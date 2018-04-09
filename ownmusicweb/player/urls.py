@@ -1,7 +1,8 @@
-from django.conf.urls import url
+from django.conf.urls import url, patterns, include
 
 from . import views
 
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-]
+urlpatterns = patterns('',
+	url(r'^$', 'song.views.all_songs'),
+	url(r'?P<song_id>\d+)/$', 'song.views.song'),
+)

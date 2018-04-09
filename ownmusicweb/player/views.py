@@ -10,3 +10,8 @@ def index(request):
     template = loader.get_template('player/index.html')
     context={}
     return HttpResponse(template.render(context, request))
+
+def all_songs
+
+def song(request, song_id):
+	return render(request, 'band/band.html')
