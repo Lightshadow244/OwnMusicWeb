@@ -5,13 +5,14 @@ from django.template import loader
 from .models import Song
 
 # Create your views here.
-def index(request):
-    #s = Song.objects.all()
-    template = loader.get_template('player/index.html')
-    context={}
-    return HttpResponse(template.render(context, request))
+#def index(request):
+    ##s = Song.objects.all()
+    #template = loader.get_template('player/index.html')
+    #context={}
+    #return HttpResponse(template.render(context, request))
 
-def all_songs
+def all_songs(request):
+    return render(request, 'player/all_songs')
 
 def song(request, song_id):
-	return render(request, 'band/band.html')
+	return render(request, 'player/band.html')
