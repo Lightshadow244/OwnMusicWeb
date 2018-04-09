@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', all_songs, name='all_songs'),
-	url(r'?P<song_id>\d+)/$', song, name='song'),
+	url(r'(?P<song_id>\d+)/$', song, name='song'),
 ]
