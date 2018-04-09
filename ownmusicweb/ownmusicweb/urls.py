@@ -12,6 +12,5 @@ router.register(r'song', views.SongViewSet)
 urlpatterns = [
     url(r'^player/', include('player.urls')),
     #url(r'^', include(router.urls)),
-    url(r'^', index),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
