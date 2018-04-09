@@ -12,9 +12,10 @@ from .models import Song
     #return HttpResponse(template.render(context, request))
 
 def all_songs(request):
-    template = loader.get_template('player/index.html')
-    context={}
-    return HttpResponse(template.render(context, request))
+    #template = loader.get_template('player/index.html')
+    #context={}
+    #return HttpResponse(template.render(context, request))
+    return render(request, 'player/all_songs.html')
 
 def song(request, song_id):
 	return render(request, 'player/song.html')
