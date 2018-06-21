@@ -4,16 +4,17 @@ A website where you can manage and listen your own music.
 
 
 # Getting started
-### clone repo
+### clone repo  
 `git clone https://github.com/Lightshadow244/OwnMusicWeb.git`
 
 ### Install Django local 
 install virtualenv
 
-create virtualenv `virtualenv /home/user/ENV`
+create virtualenv  
+`virtualenv /home/user/ENV`
 
-activate virtualenv `source /home/user/ENV/bin/activate`
-
+activate virtualenv  
+`source /home/user/ENV/bin/activate`
 
 update pip  
 `pip install --upgrade pip`
@@ -45,8 +46,8 @@ navigate to player in browser`localhost:83/player`
 
 ### Settings for own musicfolder 
 set music folder  
-`nano ownmusicweb/settings.py`
-STATICFILES_DIRS -> Folder with music
+`nano ownmusicweb/settings.py`  
+STATICFILES_DIRS -> Folder with music  
 first song should be named "hund.mp3"
 
 
@@ -67,10 +68,10 @@ create alias
 #### pip upgrade
 `sudo -H pip3 install --upgrade pip`
 #### windows
-pip install python_magic_bin-0.4.14-py2.py3-none-win32.whl
+pip install python_magic_bin-0.4.14-py2.py3-none-win32.whl  
 https://github.com/ahupp/python-magic#dependencies
 
 # Useful links
-https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
-https://docs.docker.com/compose/django/
-https://docs.djangoproject.com/en/1.11/intro/tutorial01/
+https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html  
+https://docs.docker.com/compose/django/  
+https://docs.djangoproject.com/en/1.11/intro/tutorial01/  
