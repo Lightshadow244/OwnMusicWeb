@@ -50,7 +50,23 @@ set music folder
 STATICFILES_DIRS -> Folder with music  
 first song should be named "hund.mp3"
 
+### Requirements coding  
+You need gulp and bower  
+ 
+#### gulp
+Gulp will minify your static code like js and css  
+`sudo apt-get install nodejs`  
+`npm install gulp --save-dev `   
+`npm install  --save-dev gulp-uglify`    
+`npm install  --save-dev gulp-minify-css`  
 
+`gulp minify` will trigger a task defined in gulpfile.js
+
+### bower
+is a package manger to install react and jquery 
+
+`npm install bower -g`  
+`bower install react jquery`
 
 # REST
 for more information see files:
