@@ -5,7 +5,7 @@ services:
    container_name: ownmusicweb
    hostname: ownmusicweb
    volumes:
-       - ~/OwnMusicWeb/ownmusicweb:/ownmusicweb
+       - /home/user/OwnMusicWeb/ownmusicweb:/ownmusicweb
    ports:
-    - 83:8000
+    - 80:8000
    tty: true
