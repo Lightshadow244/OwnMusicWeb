@@ -35,6 +35,6 @@ class Site extends React.Component {
 }
 
 ReactDOM.render(
-  <Game />,
+  <Site />,
   document.getElementById('root')
 );
