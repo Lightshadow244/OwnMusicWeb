@@ -57,7 +57,7 @@ componentDidMount() {
               Album
             </button>
           </div>
-          <AvailableDatalist /> /*songs={this.state.contacts}*/
+          <AvailableDatalist /> {/*songs={this.state.contacts}*/}
         </div>
         <div className="playlist">
         </div>
