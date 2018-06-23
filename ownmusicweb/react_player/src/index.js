@@ -29,7 +29,7 @@ state = {
 
 componentDidMount() {
   axios
-  .get("http://localhost:8000/song/")
+  .get("http://192.168.1.107:8000/song/")
   .then(response => {
     const songs = response.data.map(c => {
       return{
