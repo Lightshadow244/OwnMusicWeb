@@ -24,9 +24,10 @@ getAllSongs() {
         name: c.name,
         album: c.album
       };
+      console.log(songs)
     });
 
-    console.log(songs)
+
 
     const newState = Object.assign({}, this.state, {
           all_songs: songs
