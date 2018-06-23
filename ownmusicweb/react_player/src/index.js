@@ -15,7 +15,7 @@ class AvailableDatalist extends React.Component {
     )
   }
   render() {
-    return(<div>this.props.songs[0]</div>)
+    return(<div>{this.props.songs[0]}</div>)
   }
 }
 AvailableDatalist.propTypes = {
