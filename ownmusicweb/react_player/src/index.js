@@ -5,7 +5,7 @@ import './index.css';
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
-class availableDatalist extends React.Component {
+class AvailableDatalist extends React.Component {
    availableDatalist(props) {
     return(
       <div>{props.all_songs.map(c => <div><div>c.name</div> <div>c.album</div></div> )}</div>
@@ -52,7 +52,7 @@ getAllSongs() {
               Album
             </button>
           </div>
-          <availableDatalist />
+          <AvailableDatalist />
         </div>
         <div className="playlist">
         </div>
