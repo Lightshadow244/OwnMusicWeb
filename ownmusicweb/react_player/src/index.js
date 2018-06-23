@@ -11,7 +11,9 @@ class AvailableDatalist extends React.Component {
     return(
       <div>{props.all_songs.map(c => <div><div>c.name</div> <div>c.album</div></div> )}</div>
     )
-
+  }
+  render(){
+    return()
   }
 }
 AvailableDatalist.propTypes = {
