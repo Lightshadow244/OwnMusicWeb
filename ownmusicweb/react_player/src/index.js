@@ -15,7 +15,7 @@ class AvailableDatalist extends React.Component {
     )
   }
   render() {
-    return(<div>{this.props.songs[0]}</div>)
+    return(<div>{this.props.songs['name']}</div>)
   }
 }
 AvailableDatalist.propTypes = {
@@ -48,7 +48,7 @@ componentDidMount() {
         });
 
     this.setState(newState);
-    //console.log(this.state)
+    console.log(this.state)
 
   })
   .catch(error => console.log(error));
