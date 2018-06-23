@@ -1,10 +1,5 @@
 //comments
 
-//comments
+//com
 
-function test () {
- alert('Hallo');
-
-//comments
-
-}
+console.log('I was triggered from test')
