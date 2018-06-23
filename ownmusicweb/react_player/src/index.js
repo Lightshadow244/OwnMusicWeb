@@ -8,9 +8,13 @@ import axios from "axios";
 
 class AvailableDatalist extends React.Component {
   render() {
-    {/*return(<div>{this.props.songs[0]['name']}</div>)*/}
-    return(<div>{this.props.songs[0]['name']}</div>)
+    var songArray = []
+    for (var i = 0; i < this.props.songs.length; i++) {
+      songArray.push(
+        <div>{this.props.songs[i]['name']}</div>
+      )
   }
+  return({songArray})
 }
 
 AvailableDatalist.propTypes = {
