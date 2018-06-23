@@ -7,14 +7,9 @@ import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
 class AvailableDatalist extends React.Component {
-   AvailableDatalist(props) {
-    return(
-      <div>{props.all_songs.map(c => <div><div>c.name</div> <div>c.album</div></div> )}</div>
-    )
-  }
   render() {
     {/*return(<div>{this.props.songs[0]['name']}</div>)*/}
-    return(<div>{this.props.songs['name']}</div>)
+    return(<div>{this.props.songs[0]['name']}</div>)
   }
 }
 
