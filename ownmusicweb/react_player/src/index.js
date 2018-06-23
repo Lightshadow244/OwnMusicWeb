@@ -1,9 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+
 import ReactAudioPlayer from 'react-audio-player';
+import axios from "axios";
+
+class availableDatalist extends React.Component {
+  function availableDatalist(props) {
+    return(
+      <div>{props.all_songs.map(c => <{c.name} {c.album} />)}</div>
+    )
+
+  }
+}
 
 class SongBoard extends React.Component {
+getAllSongs() {
+  axios
+  .get("http://localhost:8000/song/")
+  .then(response => {
+    const songs = response.data.map(c => {
+      return{
+        name: c.name
+        album: c.album
+      };
+    });
+
+    const newState = Object.assign({}, this.state, {
+          all_songs: songs
+        });
+
+    this.setState(newState);
+
+  })
+  .catch(error => console.log(error));
+}
+
   render() {
     return(
       <div>
@@ -16,8 +48,7 @@ class SongBoard extends React.Component {
               Album
             </button>
           </div>
-          <div className="available_datalist">
-          </div>
+          <availableDatalist songs={this.state.all_songs} />
         </div>
         <div className="playlist">
         </div>

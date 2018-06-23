@@ -1,11 +1,11 @@
 .player {
-  border: 1px;
+  border-style: solid;
 }
 
 .table {
-  border: 1px;
+  border-style: solid;
 }
 
 .playlist {
-  border: 1px;
+  border-style: solid;
 }
