@@ -12,14 +12,18 @@ class AvailableDatalist extends React.Component {
     )
 
   }
-  /*AvailableDatalist.propTypes = {
-  songs: PropTypes.array.isRequired
-};*/
+  AvailableDatalist.propTypes = {
+    songs: PropTypes.array.isRequired
+  };
 }
 
 class SongBoard extends React.Component {
+
+state = {
+  songs: []
+};
+
 componentDidMount() {
-  console.log("hello World");
   axios
   .get("http://localhost:8000/song/")
   .then(response => {
@@ -34,7 +38,7 @@ componentDidMount() {
 
 
     const newState = Object.assign({}, this.state, {
-          all_songs: songs
+          songs: songs
         });
 
     this.setState(newState);
@@ -57,7 +61,7 @@ componentDidMount() {
               Album
             </button>
           </div>
-          <AvailableDatalist /> {/*songs={this.state.contacts}*/}
+          <AvailableDatalist songs={this.state.songs}/> {/*songs={this.state.contacts}*/}
         </div>
         <div className="playlist">
         </div>
