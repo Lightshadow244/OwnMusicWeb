@@ -11,6 +11,7 @@ var SongComponent = React.createClass({
 });
 
 React.render(
+  console.log('I was triggered during render')
   <SongComponent />,
   document.getElementById('content')
 )
