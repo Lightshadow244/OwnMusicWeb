@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+import PropTypes from "prop-types";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
