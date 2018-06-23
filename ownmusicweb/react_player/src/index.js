@@ -12,8 +12,8 @@ class AvailableDatalist extends React.Component {
     )
 
   }
-  AvailableDatalist.propTypes = {
-  songs: PropTypes.array.isRequired
+  /*AvailableDatalist.propTypes = {
+  songs: PropTypes.array.isRequired*/
 };
 }
 
