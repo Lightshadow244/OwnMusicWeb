@@ -4,7 +4,9 @@ import './index.css';
 import ReactAudioPlayer from 'react-audio-player';
 
 class SongBoard extends React.Component {
-
+  render() {
+    return(hello)
+  }
 }
 
 class Player extends React.Component {
