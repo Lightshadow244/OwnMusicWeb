@@ -6,25 +6,26 @@ import PropTypes from "prop-types";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
-axios.defaults.headers.common['Authorization'] = "Basic YWRtaW46K2RhcmtvcmJpdDk5";
-
-class AvailableDatalist extends React.Component {
-  render() {
-    {/*return(<div>{this.props.songs[0]['name']}</div>)*/}
-    console.log("this comes from render()")
-    console.log(this.props)
-    return(<div>{this.props.songs['name']}</div>)
-  }
-}
 AvailableDatalist.propTypes = {
   songs: PropTypes.array.isRequired
 };
 
 
-class SongBoard extends React.Component {
+class AvailableDatalist extends React.Component {
+   AvailableDatalist(props) {
+    return(
+      <div>{props.all_songs.map(c => <div><div>c.name</div> <div>c.album</div></div> )}</div>
+    )
+  }
+  render() {
+    {/*return(<div>{this.props.songs[0]['name']}</div>)*/}
+    return(<div>{this.props.songs['name']}</div>)
+  }
+}
 
+class SongBoard extends React.Component {
 state = {
-  songs: []
+  songs: [0:{name:"none", album:"none"}]
 };
 
 componentDidMount() {
@@ -36,17 +37,14 @@ componentDidMount() {
         name: c.name,
         album: c.album
       };
-
     });
-
-
 
     const newState = Object.assign({}, this.state, {
           songs: songs
         });
 
     this.setState(newState);
-   {/* console.log(this.state.songs[0])*/}
+    console.log(this.state.songs[0])
 
   })
   .catch(error => console.log(error));
