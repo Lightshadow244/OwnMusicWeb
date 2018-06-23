@@ -33,14 +33,15 @@ getAllSongs() {
           all_songs: songs
         });
 
-    this.setState(newState)
-    console.log("HEllo Word");
+    this.setState(newState);
+
 
   })
   .catch(error => console.log(error));
 }
 
   render() {
+    console.log("HEllo Word");
     return(
       <div>
         <div className="table">
