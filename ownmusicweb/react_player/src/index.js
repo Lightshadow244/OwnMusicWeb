@@ -6,7 +6,22 @@ import ReactAudioPlayer from 'react-audio-player';
 class SongBoard extends React.Component {
   render() {
     return(
-      <h1>hello</h1>
+      <div>
+        <div className="table">
+          <div className="directory">
+            <button className="song">
+              Song
+            </button>
+            <button className="album">
+              Album
+            </button>
+          </div
+          <div className="available_datalist">
+          </div>
+        </div>
+        <div className="playlist">
+        </div>
+      </div>
     )
   }
 }
