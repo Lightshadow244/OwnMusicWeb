@@ -15,7 +15,7 @@ class SongBoard extends React.Component {
             <button className="album">
               Album
             </button>
-          </div
+          </div>
           <div className="available_datalist">
           </div>
         </div>
