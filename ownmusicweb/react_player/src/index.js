@@ -49,7 +49,7 @@ componentDidMount() {
         });
 
     this.setState(newState);
-    console.log(this.state[0])
+    console.log(this.state.songs[0])
 
   })
   .catch(error => console.log(error));
