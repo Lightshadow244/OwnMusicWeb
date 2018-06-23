@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
+axios.defaults.headers.common['Authorization'] = Basic YWRtaW46K2RhcmtvcmJpdDk5;
+
 class AvailableDatalist extends React.Component {
    AvailableDatalist(props) {
     return(
