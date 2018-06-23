@@ -13,6 +13,7 @@ class AvailableDatalist extends React.Component {
       <div>{this.props.songs[0]['name']}</div>
     )
   }
+}
 
 AvailableDatalist.propTypes = {
   songs: PropTypes.array.isRequired
