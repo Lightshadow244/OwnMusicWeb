@@ -19,6 +19,7 @@ class AvailableDatalist extends React.Component {
 
 class SongBoard extends React.Component {
 componentDidMount() {
+  console.log("hello World");
   axios
   .get("http://localhost:8000/song/")
   .then(response => {
@@ -44,7 +45,7 @@ componentDidMount() {
 }
 
   render() {
-    console.log(this.state);
+
     return(
       <div>
         <div className="table">
