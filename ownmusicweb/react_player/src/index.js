@@ -9,13 +9,10 @@ import axios from "axios";
 axios.defaults.headers.common['Authorization'] = "Basic YWRtaW46K2RhcmtvcmJpdDk5";
 
 class AvailableDatalist extends React.Component {
-   AvailableDatalist(props) {
-    return(
-      <div>{props.all_songs.map(c => <div><div>c.name</div> <div>c.album</div></div> )}</div>
-    )
-  }
   render() {
     {/*return(<div>{this.props.songs[0]['name']}</div>)*/}
+    console.log("this comes from render()")
+    console.log(this.props)
     return(<div>{this.props.songs['name']}</div>)
   }
 }
@@ -49,7 +46,7 @@ componentDidMount() {
         });
 
     this.setState(newState);
-    console.log(this.state.songs[0])
+   {/* console.log(this.state.songs[0])*/}
 
   })
   .catch(error => console.log(error));
