@@ -25,7 +25,7 @@ class Site extends React.Component {
       <div className="player">
         <Player />
       </div>
-      <div className="song-board"
+      <div className="song-board">
         <SongBoard />
       </div>
     )
