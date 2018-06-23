@@ -5,20 +5,20 @@
    		<meta charset="utf-8">
    		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
    		<title>OwnMusicWeb | {% block title %}{% endblock %}</title>
-   
+
    		{% if request.user.username == "admin" %}
    			<link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css" />
    		{% else %}
    			<link rel="stylesheet" href="{% static 'build/css/main.css' %}" type="text/css" />
-   		{% endif %}  
+   		{% endif %}
 
   	</head>
   	<body>
- 
+
  		{% block content %}
 
    		{% endblock %}
-  
+
 		<script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
 		<script src="{% static 'bower_components/react/react.production.min.js' %}"></script>
 
@@ -27,7 +27,7 @@
 			<script src="{% static 'bower_components/react/JSXTransformer.js' %}"></script>
 			<script type="text/jsx" src="{% static 'js/indexReact.jsx' %}"></script>
 			-->
-			<script src="{% static '/js/indexReact.js' %}"></script>
+			<script type="text/jsx" src="{% static '/js/indexReact.jsx' %}"></script>
 
    		{% else %}
 			<script src="{% static 'build/js/indexReact.js' %}"></script>
