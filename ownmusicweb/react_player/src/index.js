@@ -22,11 +22,13 @@ class Player extends React.Component {
 class Site extends React.Component {
   render() {
     return (
-      <div className="player">
-        <Player />
-      </div>
-      <div className="song-board">
-        <SongBoard />
+      <div className="site">
+        <div className="player">
+          <Player />
+        </div>
+        <div className="song-board">
+          <SongBoard />
+        </div>
       </div>
     )
   }
