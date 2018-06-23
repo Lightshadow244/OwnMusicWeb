@@ -11,7 +11,7 @@ class AvailableDatalist extends React.Component {
   render() {
     return(
       <div>
-        {this.props.songs.map(song => <div key={song.name}> {song} </div>)}
+        {this.props.songs.map(song => <div> {song} </div>)}
       </div>
     )
   }
