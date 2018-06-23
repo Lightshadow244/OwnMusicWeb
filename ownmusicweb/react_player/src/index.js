@@ -26,6 +26,8 @@ getAllSongs() {
       };
     });
 
+    console.log(songs)
+
     const newState = Object.assign({}, this.state, {
           all_songs: songs
         });
