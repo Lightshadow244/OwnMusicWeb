@@ -23,6 +23,10 @@ class AvailableDatalist extends React.Component {
   }
 }
 
+AvailableDatalist.propTypes = {
+  songs: PropTypes.array.isRequired
+};
+
 class SongBoard extends React.Component {
 state = {
   songs: [0:{name:"none", album:"none"}]
