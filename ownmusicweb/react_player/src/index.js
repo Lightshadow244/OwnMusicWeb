@@ -6,11 +6,6 @@ import PropTypes from "prop-types";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
-AvailableDatalist.propTypes = {
-  songs: PropTypes.array.isRequired
-};
-
-
 class AvailableDatalist extends React.Component {
    AvailableDatalist(props) {
     return(
