@@ -13,8 +13,8 @@ class AvailableDatalist extends React.Component {
 
   }
   /*AvailableDatalist.propTypes = {
-  songs: PropTypes.array.isRequired*/
-};
+  songs: PropTypes.array.isRequired
+};*/
 }
 
 class SongBoard extends React.Component {
