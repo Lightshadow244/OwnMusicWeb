@@ -24,13 +24,14 @@ getAllSongs() {
         name: c.name,
         album: c.album
       };
-      console.log(songs)
+
     });
 
 
 
     const newState = Object.assign({}, this.state, {
           all_songs: songs
+          console.log(all_songs)
         });
 
     this.setState(newState);
@@ -51,7 +52,7 @@ getAllSongs() {
               Album
             </button>
           </div>
-          <availableDatalist songs={this.state.all_songs} />
+          <availableDatalist songs={this.state.songs} />
         </div>
         <div className="playlist">
         </div>
