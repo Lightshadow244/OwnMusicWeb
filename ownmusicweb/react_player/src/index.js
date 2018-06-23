@@ -31,9 +31,8 @@ getAllSongs() {
 
     const newState = Object.assign({}, this.state, {
           all_songs: songs
-          console.log(all_songs)
         });
-
+    console.log(all_songs)
     this.setState(newState);
 
   })
