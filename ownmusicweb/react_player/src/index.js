@@ -21,7 +21,7 @@ getAllSongs() {
   .then(response => {
     const songs = response.data.map(c => {
       return{
-        name: c.name
+        name: c.name,
         album: c.album
       };
     });
