@@ -6,16 +6,19 @@ import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
 class AvailableDatalist extends React.Component {
-   availableDatalist(props) {
+   AvailableDatalist(props) {
     return(
       <div>{props.all_songs.map(c => <div><div>c.name</div> <div>c.album</div></div> )}</div>
     )
 
   }
+  AvailableDatalist.propTypes = {
+  songs: PropTypes.array.isRequired
+};
 }
 
 class SongBoard extends React.Component {
-getAllSongs() {
+componentDidMount() {
   axios
   .get("http://localhost:8000/song/")
   .then(response => {
@@ -41,7 +44,7 @@ getAllSongs() {
 }
 
   render() {
-    console.log("HEllo Word");
+    console.log(this.state);
     return(
       <div>
         <div className="table">
@@ -53,7 +56,7 @@ getAllSongs() {
               Album
             </button>
           </div>
-          <AvailableDatalist />
+          <AvailableDatalist /> /*songs={this.state.contacts}*/
         </div>
         <div className="playlist">
         </div>
