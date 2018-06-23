@@ -33,8 +33,8 @@ getAllSongs() {
           all_songs: songs
         });
 
-    this.setState(newState);
-    console.log(this.state)
+    this.setState(newState)
+    console.log("HEllo Word");
 
   })
   .catch(error => console.log(error));
