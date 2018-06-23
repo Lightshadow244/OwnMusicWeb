@@ -7,16 +7,12 @@ import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
 class AvailableDatalist extends React.Component {
-  var songArray = []
-  for (var i = 0; i < this.props.songs.length; i++) {
-    songArray.push(
-      <div>{this.props.songs[i]['name']}</div>
-    )
-  }
 
   render() {
-    return({songArray})
-}
+    return(
+      {<div>{this.props.songs[0]['name']}</div>}
+    )
+  }
 
 AvailableDatalist.propTypes = {
   songs: PropTypes.array.isRequired
