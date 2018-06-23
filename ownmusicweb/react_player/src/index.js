@@ -8,7 +8,7 @@ import axios from "axios";
 class availableDatalist extends React.Component {
    availableDatalist(props) {
     return(
-      <div>{props.all_songs.map(c => <{c.name} {c.album} />)}</div>
+      <div>{props.all_songs.map(c => <div>c.name</div> <div>c.album</div> )}</div>
     )
 
   }
