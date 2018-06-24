@@ -7,7 +7,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
 class AvailableDatalist extends React.Component {
-  function getSongs(s){
+  render() {
     console.log("props during render songs")
     console.log(s.props)
     var ret = []
@@ -18,12 +18,8 @@ class AvailableDatalist extends React.Component {
     }else{
       ret = <div>test</div>
     }
+
     return(ret)
-  }
-
-
-  render() {
-    return(getSongs(this.state))
   }
 }
 
