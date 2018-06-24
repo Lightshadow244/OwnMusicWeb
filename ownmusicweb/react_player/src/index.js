@@ -9,15 +9,11 @@ import axios from "axios";
 class AvailableDatalist extends React.Component {
 
   render() {
-    {/*var songArray = []
-    for (var i = 0; i < this.props.songs.length; i++) {
-      songArray.push(
-        <div>{this.props.songs[i]['name']}</div>
-      )
-    }
-      console.log(songArray)*/}
-        {/*return(<div>{songArray</div>)*/}
-        return(<div>test</div>)
+    return(
+      this.props.songs.map(c => {
+        <div> <div>c.songName[0]</div> <div>c.album</div> <div>c.author</div> <div>c.date</div> </div
+      })
+    )
   }
 }
 
@@ -43,12 +39,13 @@ componentDidMount() {
         date: c.release_date
       };
     });
-    console.log(songs)
+
     const newState = Object.assign({}, this.state, {
           songs: songs
     });
     this.setState(newState);
-
+    console.log("state after api request")
+    console.log(this.state)
 
   })
   .catch(error => console.log(error));
