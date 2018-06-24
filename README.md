@@ -20,7 +20,7 @@ update pip
 `pip install --upgrade pip`
 
 install django, eyeD3 and everythin for REST  
-`pip install Django eyeD3 djangorestframework markdown django-filter`
+`pip install Django eyeD3 djangorestframework markdown django-filter django-cors-headers`
 
 do some pyhton Magic  
 `python manage.py migrate`
@@ -50,23 +50,15 @@ set music folder
 STATICFILES_DIRS -> Folder with music  
 first song should be named "hund.mp3"
 
-### Requirements coding  
-You need gulp and bower  
- 
-#### gulp
-Gulp will minify your static code like js and css  
-`sudo apt-get install nodejs`  
-`npm install gulp --save-dev `   
-`npm install  --save-dev gulp-uglify`    
-`npm install  --save-dev gulp-minify-css`  
+### React
+all files for react are in react_player  
 
-`gulp minify` will trigger a task defined in gulpfile.js
+#### build npm project (not tested)
+`npm init`
 
-### bower
-is a package manger to install react and jquery 
+#### start npm server
+`npm start`
 
-`npm install bower -g`  
-`bower install react jquery`
 
 # REST
 for more information see files:
