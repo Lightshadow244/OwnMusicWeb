@@ -27,14 +27,14 @@ AvailableDatalist.propTypes = {
 
 class SongBoard extends React.Component {
 state = {
-  song: [0:{name:"none", album:"none", author:"none"}]
+  songs: [0:{name:"none", album:"none", author:"none"}]
 };
 
 componentDidMount() {
   axios
   .get("http://192.168.1.107:8000/album/")
   .then(response => {
-    const song = response.data.map(c => {
+    const songs = response.data.map(c => {
       return{
         songName: c.songs.name,
         album: c.name,
@@ -43,7 +43,7 @@ componentDidMount() {
       };
     });
     const newState = Object.assign({}, this.state, {
-          song: song
+          songs: songs
     });
     this.setState(newState);
 
