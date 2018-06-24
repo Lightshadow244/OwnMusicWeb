@@ -17,11 +17,11 @@ class AvailableDatalist extends React.Component {
         <div> <div>c.songName[0]</div> <div>c.album</div> <div>c.author</div> <div>c.date</div> </div>
       })
     }else{
-      console.log("wenn songs keinen inhalt hat")
-      ret = <div>test</div>
+      console.log("wenn songs inhalt hat")
+      ret[0] = test
     }
 
-    return(ret)
+    return(<div>{ret}</div>)
   }
 }
 
