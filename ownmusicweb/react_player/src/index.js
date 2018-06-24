@@ -16,7 +16,7 @@ class AvailableDatalist extends React.Component {
         <div> <div>c.songName[0]</div> <div>c.album</div> <div>c.author</div> <div>c.date</div> </div>
       })
     }else{
-      ret = {<div>test</div>}
+      ret = <div>test</div>
     }
     return(ret)
   }
