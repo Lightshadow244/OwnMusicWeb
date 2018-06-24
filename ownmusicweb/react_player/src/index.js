@@ -50,7 +50,7 @@ componentDidMount() {
 
   })
   .catch(error => console.log(error));
-  console.log(this.state.songs[0])
+  console.log(this.state.songs)
 }
 
   render() {
