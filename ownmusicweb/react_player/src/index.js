@@ -35,8 +35,8 @@ componentDidMount() {
   .get("http://192.168.1.107:8000/album/")
   .then(response => {
     const songs = response.data.map(c => {
+      console.log(c)
       return{
-        console.log(c)
         songName: c.songs.name,
         album: c.name,
         author: c.author,
