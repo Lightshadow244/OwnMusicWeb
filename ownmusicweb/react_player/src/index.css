@@ -9,3 +9,7 @@
 .playlist {
   border-style: solid;
 }
+
+.listenEintrag{
+  float: left;
+}
