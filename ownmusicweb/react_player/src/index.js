@@ -13,14 +13,24 @@ class AvailableDatalist extends React.Component {
     var ret = []
     if(this.props.songs[0] != 0){
       ret = this.props.songs.map(c =>
-        <li> <div className="listenEintrag">{c.songName[0]}</div> <div className="listenEintrag">{c.album}</div> <div className="listenEintrag">{c.author}</div> <div className="listenEintrag">{c.date}</div> </li>
+        <tr> <td className="listenEintrag">{c.songName[0]}</td> <td className="listenEintrag">{c.album}</td> <td className="listenEintrag">{c.author}</td> <td className="listenEintrag">{c.date}</td> </tr>
       )
     }else{
       ret[0] = "test"
     }
     console.log("ret nach bearbeitung")
     console.log(ret)
-    return(<ul>{ret}</ul>)
+    return(
+      <table>
+        <tr>
+          <th>Songname</th>
+          <th>Album</th>
+          <th>Author</th>
+          <th>Date</th>
+        </tr>
+        {ret}
+      </table>
+    )
   }
 }
 
