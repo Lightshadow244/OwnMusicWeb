@@ -35,7 +35,7 @@ componentDidMount() {
   .get("http://192.168.1.107:8000/album/")
   .then(response => {
     const songs = response.data.map(c => {
-      console.log(c)
+
       return{
         songName: c.songs.map(d => {return(d.name)}),
         album: c.name,
@@ -43,6 +43,7 @@ componentDidMount() {
         date: c.release_date
       };
     });
+    console.log(songs)
     const newState = Object.assign({}, this.state, {
           songs: songs
     });
