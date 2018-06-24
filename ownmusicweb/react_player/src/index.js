@@ -36,6 +36,7 @@ componentDidMount() {
   .then(response => {
     const songs = response.data.map(c => {
       return{
+        console.log(c)
         songName: c.songs.name,
         album: c.name,
         author: c.author,
@@ -50,7 +51,7 @@ componentDidMount() {
 
   })
   .catch(error => console.log(error));
-  console.log(this.state.songs)
+
 }
 
   render() {
