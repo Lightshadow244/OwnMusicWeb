@@ -9,10 +9,11 @@ import axios from "axios";
 class AvailableDatalist extends React.Component {
   render() {
     console.log("props during render songs")
-    console.log(this.state.props)
+    console.log(this.props)
     var ret = []
-    if(this.state.props[0] != 0){
-      ret = this.state.props.songs.map(c => {
+    if(this.props[0] != 0){
+      ret = this.props.songs.map(c => {
+        
         <div> <div>c.songName[0]</div> <div>c.album</div> <div>c.author</div> <div>c.date</div> </div>
       })
     }else{
