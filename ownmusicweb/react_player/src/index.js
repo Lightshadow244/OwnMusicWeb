@@ -18,7 +18,7 @@ class AvailableDatalist extends React.Component {
       })
     }else{
       console.log("wenn songs inhalt hat")
-      ret[0] = test
+      ret[0] = "test"
     }
 
     return(<div>{ret}</div>)
