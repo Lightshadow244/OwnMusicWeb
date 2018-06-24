@@ -39,21 +39,17 @@ componentDidMount() {
         album: c.album
       };
     });
-
     const newState = Object.assign({}, this.state, {
           songs: songs
-        });
-
+    });
     this.setState(newState);
-
-
-
     console.log(this.state.songs[0])
 
   })
   .catch(error => console.log(error));
 
   for(var i = 0; i < this.state.songs.length;i++){
+    axios
     .get(this.state.songs[0]["album"])
     .then(response => {
       const songs = response.data.map(c => {
@@ -69,6 +65,7 @@ componentDidMount() {
       this.setState(newState);
       console.log(this.state.songs[0])
     })
+    .catch(error => console.log(error));
   }
 
 }
