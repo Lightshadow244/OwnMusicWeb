@@ -37,7 +37,7 @@ componentDidMount() {
     const songs = response.data.map(c => {
       console.log(c)
       return{
-        songName: c.songs.name,
+        songName: c.songs[].name,
         album: c.name,
         author: c.author,
         date: c.release_date
