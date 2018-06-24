@@ -37,7 +37,7 @@ componentDidMount() {
       return{
         songName: c.songs.name,
         album: c.name,
-        author: c.author
+        author: c.author,
         date: c.release_date
       };
     });
