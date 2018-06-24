@@ -43,18 +43,18 @@ componentDidMount() {
           songs: songs
     });
     this.setState(newState);
-    console.log(this.state.songs[0])
+    console.log(this.state.songs[0]["album"])
 
   })
   .catch(error => console.log(error));
 
   for(var i = 0; i < this.state.songs.length;i++){
     axios
-    .get(this.state.songs[0]["album"])
+    .get(this.state.songs[i]["album"])
     .then(response => {
       const songs = response.data.map(c => {
         return{
-          name: this.state.songs[0]["name"],
+          name: this.state.songs[i]["name"],
           album: c.name,
           auhor: c.author
         };
