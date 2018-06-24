@@ -26,48 +26,30 @@ AvailableDatalist.propTypes = {
 
 class SongBoard extends React.Component {
 state = {
-  songs: [0:{name:"none", album:"none", author:"none"}]
+  song: [0:{name:"none", album:"none", author:"none"}]
 };
 
 componentDidMount() {
   axios
-  .get("http://192.168.1.107:8000/song/")
+  .get("http://192.168.1.107:8000/album/")
   .then(response => {
-    const songs = response.data.map(c => {
+    const song = response.data.map(c => {
       return{
-        name: c.name,
-        album: c.album
+        songName: c.songs.name,
+        album: c.name,
+        author: c.author
+        date: c.release_date
       };
     });
     const newState = Object.assign({}, this.state, {
-          songs: songs
+          song: song
     });
     this.setState(newState);
-    console.log(this.state.songs[0]["album"])
+
 
   })
   .catch(error => console.log(error));
-
-  for(var i = 0; i < this.state.songs.length;i++){
-    axios
-    .get(this.state.songs[i]["album"])
-    .then(response => {
-      const songs = response.data.map(c => {
-        return{
-          name: this.state.songs[i]["name"],
-          album: c.name,
-          auhor: c.author
-        };
-      });
-      const newState = Object.assign({}, this.state, {
-            songs: songs
-      });
-      this.setState(newState);
-      console.log(this.state.songs[0])
-    })
-    .catch(error => console.log(error));
-  }
-
+  console.log(this.state.songs[0])
 }
 
   render() {
