@@ -34,12 +34,15 @@ start server
 navigate to player in browser`0.0.0.0:8000/player`
 
 ### Use Docker
-install docker-compose
+This container supports only the rest_api for the moment. The React frondend ist not included  
+
+#### Requirements
+install docker-compose  
 
 build and start container  
 `sudo docker-compose up`
 
-navigate to player in browser`localhost:83/player`
+navigate to rest-api in browser`localhost:83/`
 
 
 
