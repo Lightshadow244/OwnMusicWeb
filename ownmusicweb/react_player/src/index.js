@@ -12,9 +12,9 @@ class AvailableDatalist extends React.Component {
     console.log(this.props)
     var ret = []
     if(this.props.songs[0] != 0){
-      ret = this.props.songs.map(c => {
+      ret = this.props.songs.map(c =>
         <div> <div>c.songName[0]</div> <div>c.album</div> <div>c.author</div> <div>c.date</div> </div>
-      })
+      )
     }else{
       ret[0] = "test"
     }
