@@ -7,7 +7,9 @@ A website where you can manage and listen your own music.
 ### clone repo  
 `git clone https://github.com/Lightshadow244/OwnMusicWeb.git`
 
-### Install Django local 
+### Django
+Django is the backend, database and rest-api. The rest api is accessable with the browser.  
+#### Install
 install virtualenv
 
 create virtualenv  
@@ -32,7 +34,7 @@ start server
 `python ownmusicweb/manage.py runserver 0.0.0.0:8000`
 
 
-navigate to player in browser`0.0.0.0:8000/player`
+navigate to player in browser`0.0.0.0:8000`
 
 ### Use Docker
 This container supports only the rest_api for the moment. The React frondend ist not included  
@@ -54,8 +56,8 @@ set music folder
 STATICFILES_DIRS -> Folder with music  
 first song should be named "hund.mp3"
 
-### React
-all files for react are in react_player  
+### React  
+React is the frontend. All files for react are in react_player.  
 
 #### build npm project (not tested)
 `npm install`
