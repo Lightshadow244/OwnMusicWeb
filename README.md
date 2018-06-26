@@ -58,7 +58,7 @@ first song should be named "hund.mp3"
 all files for react are in react_player  
 
 #### build npm project (not tested)
-`npm init`
+`npm install`
 
 #### start npm server
 `npm start`
