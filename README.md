@@ -20,15 +20,16 @@ update pip
 `pip install --upgrade pip`
 
 install django, eyeD3 and everythin for REST  
-`pip install Django eyeD3 djangorestframework markdown django-filter django-cors-headers`
+`pip install -r ownmusicweb/requirements.txt`
 
 do some pyhton Magic  
+`python manage.py makemigration`  
 `python manage.py migrate`
 
 add localhost to allowed hosts in ./ownmusicweb/settings.py
 
 start server  
-`python /home/user/ownmusicweb/ownmusicweb/manage.py runserver 0.0.0.0:8000`
+`python ownmusicweb/manage.py runserver 0.0.0.0:8000`
 
 
 navigate to player in browser`0.0.0.0:8000/player`
