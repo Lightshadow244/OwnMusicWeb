@@ -6,7 +6,7 @@ RUN ["apt-get", "update"]
 RUN ["apt-get", "install", "-y", "python-pip"]
 
 RUN ["pip", "install", "--upgrade", "pip"]
-RUN ["pip", "install", "Django", "eyeD3", "djangorestframework", "markdown", "django-filter"]
+RUN ["pip", "install", "-r" "requirements.txt"]
 
 #RUN ["python", "/ownmusicweb/manage.py", "migrate"]
 

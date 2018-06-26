@@ -18,7 +18,7 @@ class Song(models.Model):
     #foreign key create a field in Album song_set. To get all Songs from a Album use
     # a = Album.objects.get(album_id=0); a.song_set.all()
     album = models.ForeignKey(Album, on_delete=models.CASCADE, default=0)
-    change_date = models.DateField(django.utils.timezone.now)
+    change_date = models.DateField(default=django.utils.timezone.now)
     audio_file = models.FileField()
     def __str__(self):
         return self.name
