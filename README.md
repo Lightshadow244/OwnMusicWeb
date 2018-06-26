@@ -19,7 +19,7 @@ activate virtualenv
 update pip  
 `pip install --upgrade pip`
 
-install django, eyeD3 and everythin for REST  
+install rquirements(Dajngo, eyeD3,...)  
 `pip install -r ownmusicweb/requirements.txt`
 
 do some pyhton Magic  
@@ -43,7 +43,7 @@ install docker-compose
 build and start container  
 `sudo docker-compose up`
 
-navigate to rest-api in browser`localhost:83/`
+navigate to rest-api in browser`localhost:80`
 
 
 
