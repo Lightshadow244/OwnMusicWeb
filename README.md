@@ -28,11 +28,8 @@ do some pyhton Magic
 `python manage.py makemigration`  
 `python manage.py migrate`
 
-add localhost to allowed hosts in ./ownmusicweb/settings.py
-
 start server  
-`python ownmusicweb/manage.py runserver 0.0.0.0:8000`
-
+`python ownmusicweb/manage.py runserver 0.0.0.0:8000`  
 
 navigate to player in browser`0.0.0.0:8000`
 
