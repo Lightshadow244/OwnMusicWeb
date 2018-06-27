@@ -13,10 +13,15 @@ class AvailableDatalist extends React.Component {
     var ret = []
     if(this.props.songs[0] !== 0){
       ret = this.props.songs.map(c =>
-        <tr> <td className="listenEintrag">{c.songName[0]}</td> <td className="listenEintrag">{c.album}</td> <td className="listenEintrag">{c.author}</td> <td className="listenEintrag">{c.date}</td> </tr>
+        <tr>
+          <td className="listenEintrag">{c.songName[0]}</td>
+          <td className="listenEintrag">{c.album}</td>
+          <td className="listenEintrag">{c.author}</td>
+          <td className="listenEintrag">{c.date}</td>
+        </tr>
       )
     }else{
-      ret[0] = "test"
+      ret[0] = "loading..."
     }
     console.log("ret nach bearbeitung")
     console.log(ret)
