@@ -7,7 +7,9 @@ A website where you can manage and listen your own music.
 ### clone repo  
 `git clone https://github.com/Lightshadow244/OwnMusicWeb.git`
 
-### Install Django local 
+### Django
+Django is the backend, database and rest-api. The rest api is accessable with the browser.  
+#### Install
 install virtualenv
 
 create virtualenv  
@@ -19,27 +21,28 @@ activate virtualenv
 update pip  
 `pip install --upgrade pip`
 
-install django, eyeD3 and everythin for REST  
-`pip install Django eyeD3 djangorestframework markdown django-filter`
+install rquirements(Dajngo, eyeD3,...)  
+`pip install -r ownmusicweb/requirements.txt`
 
 do some pyhton Magic  
+`python manage.py makemigration`  
 `python manage.py migrate`
 
-add localhost to allowed hosts in ./ownmusicweb/settings.py
-
 start server  
-`python /home/user/ownmusicweb/ownmusicweb/manage.py runserver 0.0.0.0:8000`
+`python ownmusicweb/manage.py runserver 0.0.0.0:8000`  
 
-
-navigate to player in browser`0.0.0.0:8000/player`
+navigate to player in browser`0.0.0.0:8000`
 
 ### Use Docker
-install docker-compose
+This container supports only the rest_api for the moment. The React frondend ist not included  
+
+#### Requirements
+install docker-compose  
 
 build and start container  
 `sudo docker-compose up`
 
-navigate to player in browser`localhost:83/player`
+navigate to rest-api in browser`localhost:80`
 
 
 
@@ -50,23 +53,15 @@ set music folder
 STATICFILES_DIRS -> Folder with music  
 first song should be named "hund.mp3"
 
-### Requirements coding  
-You need gulp and bower  
- 
-#### gulp
-Gulp will minify your static code like js and css  
-`sudo apt-get install nodejs`  
-`npm install gulp --save-dev `   
-`npm install  --save-dev gulp-uglify`    
-`npm install  --save-dev gulp-minify-css`  
+### React  
+React is the frontend. All files for react are in react_player.  
 
-`gulp minify` will trigger a task defined in gulpfile.js
+#### build npm project (not tested)
+`npm install`
 
-### bower
-is a package manger to install react and jquery 
+#### start npm server
+`npm start`
 
-`npm install bower -g`  
-`bower install react jquery`
 
 # REST
 for more information see files:
