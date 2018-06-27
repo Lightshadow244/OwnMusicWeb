@@ -27,13 +27,15 @@ class AvailableDatalist extends React.Component {
     console.log(ret)
     return(
       <table>
-        <tr>
-          <th>Songname</th>
-          <th>Album</th>
-          <th>Author</th>
-          <th>Date</th>
-        </tr>
-        {ret}
+        <tbody>
+          <tr>
+            <th>Songname</th>
+            <th>Album</th>
+            <th>Author</th>
+            <th>Date</th>
+          </tr>
+          {ret}
+        </tbody>
       </table>
     )
   }
