@@ -40,22 +40,22 @@ class AvailableDatalist extends React.Component {
 }
 
 AvailableDatalist.propTypes = {
-  songs: PropTypes.array.isRequired
+  song_set: PropTypes.array.isRequired
 };
 
 class SongBoard extends React.Component {
 state = {
-  songs: [0:{name:"none", album:"none", author:"none"}]
+  song_set: [0:{name:"none", album:"none", author:"none"}]
 };
 
 componentDidMount() {
   axios
   .get("http://192.168.1.107:8000/album/")
   .then(response => {
-    const songs = response.data.map(c => {
+    const song_set = response.data.map(c => {
 
       return{
-        songName: c.songs.map(d => {return(d.name)}),
+        songName: c.song_set.map(d => {return(d.name)}),
         album: c.name,
         author: c.author,
         date: c.release_date
@@ -63,7 +63,7 @@ componentDidMount() {
     });
 
     const newState = Object.assign({}, this.state, {
-          songs: songs
+          song_set: song_set
     });
     this.setState(newState);
     console.log("state after api request")
@@ -87,7 +87,7 @@ componentDidMount() {
               Album
             </button>
           </div>
-          <AvailableDatalist songs={this.state.songs}/> {/*songs={this.state.contacts}*/}
+          <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
         </div>
         <div className="playlist">
         </div>
