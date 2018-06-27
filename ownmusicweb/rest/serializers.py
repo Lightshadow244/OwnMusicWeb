@@ -13,7 +13,7 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     #songs = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Album
-        fields = ('id', 'name', 'author', 'release_date', 'songs')
+        fields = ('id', 'name', 'author', 'release_date')
         depth = 1
 
 class SongSerializer(serializers.ModelSerializer):
