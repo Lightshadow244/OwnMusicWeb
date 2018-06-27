@@ -10,15 +10,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
-    #songs = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    songs = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Album
-        fields = ('id', 'name', 'author', 'release_date')
-        depth = 1
+        fields = ('id', 'name', 'author', 'release_date', 'songs')
 
 class SongSerializer(serializers.ModelSerializer):
     album= serializers.CharField(read_only=True)
     class Meta:
         model = Song
         fields = ('id', 'name','album', 'change_date', 'audio_file')
-        depth = 1
