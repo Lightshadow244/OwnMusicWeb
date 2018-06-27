@@ -11,8 +11,8 @@ class AvailableDatalist extends React.Component {
     console.log("props during render songs")
     console.log(this.props)
     var ret = []
-    if(this.props.songs[0] !== 0){
-      ret = this.props.songs.map(c =>
+    if(this.props.song_set[0] !== 0){
+      ret = this.props.song_set.map(c =>
         <tr>
           <td className="listenEintrag">{c.songName[0]}</td>
           <td className="listenEintrag">{c.album}</td>
