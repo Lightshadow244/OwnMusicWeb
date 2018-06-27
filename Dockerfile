@@ -12,4 +12,7 @@ RUN ["pip", "install", "--upgrade", "pip"]
 
 #RUN ["python", "/ownmusicweb/manage.py", "runserver", "0.0.0.0:8000"]
 
-ENTRYPOINT pip install -r /ownmusicweb/requirements.txt && python manage.py makemigrations player && python /ownmusicweb/manage.py migrate && python /ownmusicweb/manage.py runserver 0.0.0.0:8000
+ADD .init.sh /
+
+#ENTRYPOINT pip install -r /ownmusicweb/requirements.txt && python manage.py makemigrations player && python /ownmusicweb/manage.py migrate && python /ownmusicweb/manage.py runserver 0.0.0.0:8000
+ENTRYPOINT bash /.init.sh
