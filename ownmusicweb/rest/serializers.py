@@ -15,7 +15,7 @@ class SongSerializer(serializers.ModelSerializer):
         fields = ('id', 'name','album', 'change_date', 'audio_file')
 
 class AlbumSerializer(serializers.ModelSerializer):
-    songs = SongSerializer(many=True, read_only=True)
+    song_set = SongSerializer(many=True, read_only=True)
     class Meta:
         model = Album
-        fields = ('id', 'name', 'author', 'release_date', 'songs')
+        fields = ('id', 'name', 'author', 'release_date', 'song_set')
