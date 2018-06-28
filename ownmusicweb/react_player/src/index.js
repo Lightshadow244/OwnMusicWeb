@@ -13,7 +13,7 @@ class AvailableDatalist extends React.Component {
     var ret = []
     if(this.props.song_set[0] !== 0){
       ret = this.props.song_set.map(c =>
-        <tr>
+        <tr key={c.songName}>
           <td className="listenEintrag">{c.songName[0]}</td>
           <td className="listenEintrag">{c.album}</td>
           <td className="listenEintrag">{c.author}</td>
@@ -21,10 +21,12 @@ class AvailableDatalist extends React.Component {
         </tr>
       )
     }else{
-      ret[0] = "loading..."
+      ret[0] = "<tr><td>loading...</td></tr>"
     }
+
     console.log("ret nach bearbeitung")
     console.log(ret)
+
     return(
       <table>
         <tbody>
@@ -51,6 +53,7 @@ state = {
 };
 
 componentDidMount() {
+	console.log("current location")
 	console.log(window.location.hostname)
   axios
   .get("http://" + window.location.hostname + ":8000/album/")
