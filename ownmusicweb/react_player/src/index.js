@@ -53,7 +53,7 @@ state = {
 componentDidMount() {
 	console.log(window.location.hostname)
   axios
-  .get(window.location.hostname + ":8000/album/")
+  .get("http://" + window.location.hostname + ":8000/album/")
   .then(response => {
     const song_set = response.data.map(c => {
 
