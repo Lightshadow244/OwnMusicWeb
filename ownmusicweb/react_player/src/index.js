@@ -49,37 +49,37 @@ AvailableDatalist.propTypes = {
 };
 
 class SongBoard extends React.Component {
-state = {
-  song_set: [0:{name:"none", album:"none", author:"none"}]
-};
+	state = {
+	  song_set: [0:{name:"none", album:"none", author:"none"}]
+	};
 
-componentDidMount() {
-	console.log("current location")
-	console.log(window.location.hostname)
-  axios
-  .get("http://" + window.location.hostname + ":8000/album/")
-  .then(response => {
-    const song_set = response.data.map(c => {
+	componentDidMount() {
+		console.log("current location")
+		console.log(window.location.hostname)
+	  axios
+	  .get("http://" + window.location.hostname + ":8000/album/")
+	  .then(response => {
+	    const song_set = response.data.map(c => {
 
-      return{
-        songName: c.song_set.map(d => {return(d.name)}),
-        album: c.name,
-        author: c.author,
-        date: c.release_date
-      };
-    });
+	      return{
+	        songName: c.song_set.map(d => {return(d.name)}),
+	        album: c.name,
+	        author: c.author,
+	        date: c.release_date
+	      };
+	    });
 
-    const newState = Object.assign({}, this.state, {
-          song_set: song_set
-    });
-    this.setState(newState);
-    console.log("state after api request")
-    console.log(this.state)
+	    const newState = Object.assign({}, this.state, {
+	          song_set: song_set
+	    });
+	    this.setState(newState);
+	    console.log("state after api request")
+	    console.log(this.state)
 
-  })
-  .catch(error => console.log(error));
+	  })
+	  .catch(error => console.log(error));
 
-}
+	}
 
   render() {
 
@@ -119,10 +119,10 @@ class Site extends React.Component {
   render() {
     return (
       <div className="site">
-        <div className="player">
+        <div className="container-fluid">
           <Player />
         </div>
-        <div className="song-board">
+        <div className="container-fluid">
           <SongBoard />
         </div>
       </div>
