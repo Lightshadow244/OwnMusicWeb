@@ -94,7 +94,7 @@ class SongBoard extends React.Component {
 										Songs
 							  </label>
 							  <label className="btn btn-primary">
-							    <input type="radio" name="options" id="option2" autocomplete="off" /> 
+							    <input type="radio" name="options" id="option2" autocomplete="off" />
 										Album
 							  </label>
 
@@ -102,7 +102,7 @@ class SongBoard extends React.Component {
 	          </div>
 	          <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
 					</div>
-					<div className="playlist col-lg-4 bg-secondary">
+					<div className="playlist col-lg-4 bg-primary">
 						playlist
 	        </div>
         </div>
