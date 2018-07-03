@@ -22,7 +22,7 @@ class AvailableDatalist extends React.Component {
         </tr>
       )
     }else{
-      ret[0] = "<tr><td>loading...</td></tr>"
+      ret[0] = <tr><td>loading...</td></tr>
     }
 
     console.log("ret nach bearbeitung")
@@ -92,7 +92,7 @@ class SongBoard extends React.Component {
 						    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked />
 									Song
 						  </label>
-						  <label class="btn btn-secondary">
+						  <label className="btn btn-secondary">
 						    <input type="radio" name="options" id="option2" autoComplete="off" />
 									Album
 						  </label>
