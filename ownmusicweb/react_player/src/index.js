@@ -86,7 +86,7 @@ class SongBoard extends React.Component {
     return(
       <div>
         <div className="table">
-          <div className="directory">
+          <div className="directory float-right">
 						<div className="btn-group btn-group-toggle" data-toggle="buttons">
 						  <label className="btn btn-secondary active">
 						    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked />
