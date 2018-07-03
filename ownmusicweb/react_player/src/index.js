@@ -85,7 +85,7 @@ class SongBoard extends React.Component {
 
     return(
       <div className="table container-fluid">
-        <div className=" table row">
+        <div className="row">
 					<div className="col-lg-6">
 	          <div className="directory">
 							<div className="btn-group btn-group-toggle" data-toggle="buttons">
@@ -101,10 +101,10 @@ class SongBoard extends React.Component {
 	          </div>
 	          <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
 					</div>
-        </div>
-        <div className="playlist col-lg-6">
-					playlist
-        </div>
+					<div className="playlist col-lg-6">
+						playlist
+	        </div>
+        </div>    
       </div>
     )
   }
