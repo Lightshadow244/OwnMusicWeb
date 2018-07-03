@@ -87,12 +87,14 @@ class SongBoard extends React.Component {
       <div>
         <div className="table">
           <div className="directory">
-            <button className="song">
-              Song
-            </button>
-            <button className="album">
-              Album
-            </button>
+						<div className="btn-group btn-group-toggle" data-toggle="buttons">
+						  <label className="btn btn-secondary active">
+						    <input type="radio" name="options" id="option1" autocomplete="off" checked> Song
+						  </label>
+						  <label class="btn btn-secondary">
+						    <input type="radio" name="options" id="option2" autocomplete="off"> Album
+						  </label>
+						</div>
           </div>
           <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
         </div>
