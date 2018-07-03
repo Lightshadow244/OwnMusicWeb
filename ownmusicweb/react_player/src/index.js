@@ -89,18 +89,12 @@ class SongBoard extends React.Component {
           <div className="directory">
 						<div className="btn-group btn-group-toggle" data-toggle="buttons">
 						  <label className="btn btn-secondary active">
-						    <input type="radio" name="options" id="option1" autocomplete="off" checked>
-									<div>
-										Song
-									</div>
-								</input>
+						    <input type="radio" name="options" id="option1" autocomplete="off" checked />
+									Song
 						  </label>
 						  <label class="btn btn-secondary">
-						    <input type="radio" name="options" id="option2" autocomplete="off">
-									<div>
-										Album
-									</div>
-								</input>
+						    <input type="radio" name="options" id="option2" autocomplete="off" />
+									Album
 						  </label>
 						</div>
           </div>
