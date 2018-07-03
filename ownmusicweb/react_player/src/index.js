@@ -101,6 +101,7 @@ class SongBoard extends React.Component {
           <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
         </div>
         <div className="playlist">
+					playlist
         </div>
       </div>
     )
