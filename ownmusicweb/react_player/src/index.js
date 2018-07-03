@@ -84,28 +84,28 @@ class SongBoard extends React.Component {
   render() {
 
     return(
-      <div className="table container-fluid">
-        <div className="row">
-					<div className="col-lg-6">
-	          <div className="directory">
-							<div className="btn-group btn-group-toggle" data-toggle="buttons">
-							  <label className="btn btn-secondary active">
-							    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked />
-										Song
-							  </label>
-							  <label className="btn btn-secondary">
-							    <input type="radio" name="options" id="option2" autoComplete="off" />
-										Album
-							  </label>
-							</div>
-	          </div>
-	          <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
-					</div>
-        </div>
-        <div className="playlist col-lg-6">
-					playlist
-        </div>
+
+      <div className="table row">
+				<div className="col-lg-6">
+          <div className="directory">
+						<div className="btn-group btn-group-toggle" data-toggle="buttons">
+						  <label className="btn btn-secondary active">
+						    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked />
+									Song
+						  </label>
+						  <label className="btn btn-secondary">
+						    <input type="radio" name="options" id="option2" autoComplete="off" />
+									Album
+						  </label>
+						</div>
+          </div>
+          <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
+				</div>
       </div>
+      <div className="playlist col-lg-6">
+				playlist
+      </div>
+
     )
   }
 }
