@@ -22,7 +22,7 @@ class AvailableDatalist extends React.Component {
         </tr>
       )
     }else{
-      ret[0] = <tr><td>loading...</td></tr>
+      ret[0] = <tr key="loading"><td>loading...</td></tr>
     }
 
     console.log("ret nach bearbeitung")
