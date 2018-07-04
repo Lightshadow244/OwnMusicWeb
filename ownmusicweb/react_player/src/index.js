@@ -55,7 +55,7 @@ class SongBoard extends React.Component {
 	  song_set: [0:{name:"none", album:"none", author:"none"}]
 	};
 
-	renderSongs(){
+	function renderSongs(){
 		console.log("button was clicked")
 	}
 
