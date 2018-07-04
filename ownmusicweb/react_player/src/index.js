@@ -92,16 +92,14 @@ class SongBoard extends React.Component {
 		console.log("state befor render");
 		console.log(this.state);
 	  axios
-	  .get("http://" + window.location.hostname + ":8000/album/")
+	  .get("http://" + window.location.hostname + ":8000/song/")
 	  .then(response => {
 	    const song_set2 = response.data.map(c => {
 	      return{
-	        song_set: c.song_set.map(d => {return(
-						songName: d.name,
-		        album: c.name,
-		        author: c.author,
-		        date: c.release_date
-					)})
+					songName: c.name,
+	        album: c.album,
+	        author: "c.author",
+	        date: "c.release_date"
 	      };
 	    });
 
