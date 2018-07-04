@@ -65,7 +65,6 @@ class SongBoard extends React.Component {
 		.get("http://" + window.location.hostname + ":8000/album/")
 		.then(response => {
 			const song_set = response.data.map(c => {
-
 				return{
 					songName: c.song_set.map(d => {return(d.name)}),
 					album: c.name,
@@ -104,7 +103,7 @@ class SongBoard extends React.Component {
 	    });
 
 	    const newState = Object.assign({}, this.state, {
-	          song_set: song_set2[0]
+	          song_set: song_set2
 	    });
 	    this.setState(newState);
 	    console.log("state after api request")
