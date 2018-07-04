@@ -17,7 +17,7 @@ class AvailableDatalist extends React.Component {
     if(this.props.song_set[0] !== 0){
       ret = this.props.song_set.map(c =>
         <tr key={c.songName}>
-          <td className="listenEintrag">{c.songName[0]}</td>
+          <td className="listenEintrag">{c.songName}</td>
           <td className="listenEintrag">{c.album}</td>
           <td className="listenEintrag">{c.author}</td>
           <td className="listenEintrag">{c.date}</td>
