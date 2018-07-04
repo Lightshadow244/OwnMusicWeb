@@ -57,9 +57,6 @@ class SongBoard extends React.Component {
 
 	renderSongs(){
 		console.log("button was clicked")
-	}
-
-	componentDidMount() {
 		console.log("current location")
 		console.log(window.location.hostname)
 	  axios
@@ -84,6 +81,10 @@ class SongBoard extends React.Component {
 
 	  })
 	  .catch(error => console.log(error));
+	}
+
+	componentDidMount() {
+		this.renderSongs
 
 	}
 
