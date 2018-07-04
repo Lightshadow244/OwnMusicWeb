@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
+
+
 class AvailableDatalist extends React.Component {
   render() {
     console.log("props during render songs")
@@ -53,6 +55,10 @@ class SongBoard extends React.Component {
 	  song_set: [0:{name:"none", album:"none", author:"none"}]
 	};
 
+	renderSongs(){
+		console.log("button was clicked")
+	}
+
 	componentDidMount() {
 		console.log("current location")
 		console.log(window.location.hostname)
@@ -89,7 +95,7 @@ class SongBoard extends React.Component {
 					<div className="col-lg-8 bg-primary">
 	          <div className="directory">
 							<div className="btn-group btn-group-toggle" data-toggle="buttons">
-							  <label className="btn btn-primary active" onClick={console.log('button was clicked')}>
+							  <label className="btn btn-primary active" onClick={renderSongs}>
 							    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked={true} />
 										Songs
 							  </label>
