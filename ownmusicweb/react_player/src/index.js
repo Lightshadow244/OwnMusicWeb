@@ -84,7 +84,7 @@ class SongBoard extends React.Component {
 	}
 
 	componentDidMount() {
-		this.renderSongs
+		this.renderSongs();
 
 	}
 
