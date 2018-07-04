@@ -95,7 +95,7 @@ class SongBoard extends React.Component {
 					<div className="col-lg-8 bg-primary">
 	          <div className="directory">
 							<div className="btn-group btn-group-toggle" data-toggle="buttons">
-							  <label className="btn btn-primary active" onClick={this.renderSongs.bind(this)}>
+							  <label className="btn btn-primary active" onClick={this.renderSongs}>
 							    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked={true} />
 										Songs
 							  </label>
