@@ -55,27 +55,58 @@ class SongBoard extends React.Component {
 	  song_set: [0:{name:"none", album:"none", author:"none"}]
 	};
 
-	renderSongs(){
+	renderAlbums(){
 		console.log("button was clicked")
 		console.log("current location")
 		console.log(window.location.hostname)
 		console.log("state befor render");
 		console.log(this);
+		axios
+		.get("http://" + window.location.hostname + ":8000/album/")
+		.then(response => {
+			const song_set = response.data.map(c => {
+
+				return{
+					songName: c.song_set.map(d => {return(d.name)}),
+					album: c.name,
+					author: c.author,
+					date: c.release_date
+				};
+			});
+
+			const newState = Object.assign({}, this.state, {
+						song_set: song_set
+			});
+			this.setState(newState);
+			console.log("state after api request")
+			console.log(this.state)
+
+		})
+		.catch(error => console.log(error));
+	}
+
+	renderSongs(){
+		console.log("button was clicked")
+		console.log("current location")
+		console.log(window.location.hostname)
+		console.log("state befor render");
+		console.log(this.state);
 	  axios
 	  .get("http://" + window.location.hostname + ":8000/album/")
 	  .then(response => {
 	    const song_set = response.data.map(c => {
-
 	      return{
-	        songName: c.song_set.map(d => {return(d.name)}),
-	        album: c.name,
-	        author: c.author,
-	        date: c.release_date
+	        song_set: c.song_set.map(d => {return(
+						songName: d.name,
+		        album: c.name,
+		        author: c.author,
+		        date: c.release_date
+					)})
 	      };
 	    });
 
 	    const newState = Object.assign({}, this.state, {
-	          song_set: song_set
+	          song_set[0]: song_set
 	    });
 	    this.setState(newState);
 	    console.log("state after api request")
