@@ -94,7 +94,7 @@ class SongBoard extends React.Component {
 	  axios
 	  .get("http://" + window.location.hostname + ":8000/album/")
 	  .then(response => {
-	    const song_set = response.data.map(c => {
+	    const song_set2 = response.data.map(c => {
 	      return{
 	        song_set: c.song_set.map(d => {return(
 						songName: d.name,
@@ -106,7 +106,7 @@ class SongBoard extends React.Component {
 	    });
 
 	    const newState = Object.assign({}, this.state, {
-	          song_set[0]: song_set
+	          song_set: song_set2[0]
 	    });
 	    this.setState(newState);
 	    console.log("state after api request")
