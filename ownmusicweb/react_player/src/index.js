@@ -13,36 +13,70 @@ class AvailableDatalist extends React.Component {
   render() {
     console.log("props during render songs")
     console.log(this.props)
-    var ret = []
+    var tableValues = []
+		var table = []
     if(this.props.song_set[0] !== 0){
-      ret = this.props.song_set.map(c =>
-        <tr key={c.songName}>
-          <td className="listenEintrag">{c.songName}</td>
-          <td className="listenEintrag">{c.album}</td>
-          <td className="listenEintrag">{c.author}</td>
-          <td className="listenEintrag">{c.date}</td>
-        </tr>
-      )
+			if(this.props.song_set[0].songName === "noName"){
+				console.log("!!!!!NONAME is true!!!!")
+				tableValues = this.props.song_set.map(c =>
+	        <tr key={"row-" + c.album}>
+	          <td className="listenEintrag">{c.album}</td>
+	          <td className="listenEintrag">{c.author}</td>
+	          <td className="listenEintrag">{c.date}</td>
+	        </tr>
+				)
+				table =
+					<table className="table-striped">
+		        <tbody>
+		          <tr>
+		            <th>Album</th>
+		            <th>Author</th>
+		            <th>Date</th>
+		          </tr>
+		          {tableValues}
+		        </tbody>
+		      </table>
+
+			}else{
+				console.log("!!!!!NONAME is not true!!!!")
+				tableValues = this.props.song_set.map(c =>
+	        <tr key={"row-" + c.songName}>
+	          <td className="listenEintrag">{c.songName}</td>
+	          <td className="listenEintrag">{c.album}</td>
+	          <td className="listenEintrag">{c.author}</td>
+	          <td className="listenEintrag">{c.date}</td>
+	        </tr>
+	      )
+				table =
+					<table className="table-striped">
+		        <tbody>
+		          <tr>
+		            <th>Songname</th>
+		            <th>Album</th>
+		            <th>Author</th>
+		            <th>Date</th>
+		          </tr>
+		          {tableValues}
+		        </tbody>
+		      </table>
+			}
+
     }else{
-      ret[0] = <tr key="loading"><td>loading...</td></tr>
+			console.log("loading...")
+      tableValues[0] = <tr key="loading"><td>loading...</td></tr>
+
+			table =
+				<table className="table-striped">
+					<tbody>
+						{tableValues}
+					</tbody>
+				</table>
     }
 
-    console.log("ret nach bearbeitung")
-    console.log(ret)
+    console.log("table nach bearbeitung")
+    console.log(table)
 
-    return(
-      <table className="table-striped">
-        <tbody>
-          <tr>
-            <th>Songname</th>
-            <th>Album</th>
-            <th>Author</th>
-            <th>Date</th>
-          </tr>
-          {ret}
-        </tbody>
-      </table>
-    )
+    return(table)
   }
 }
 
@@ -56,17 +90,17 @@ class SongBoard extends React.Component {
 	};
 
 	renderAlbums(){
-		console.log("button was clicked")
-		console.log("current location")
-		console.log(window.location.hostname)
-		console.log("state befor render");
-		console.log(this);
+		//console.log("button was clicked")
+		//console.log("current location")
+		//console.log(window.location.hostname)
+		//console.log("state befor render");
+		//console.log(this);
 		axios
 		.get("http://" + window.location.hostname + ":8000/album/")
 		.then(response => {
 			const song_set = response.data.map(c => {
 				return{
-					songName: c.song_set.map(d => {return(d.name)}),
+					songName: "noName",
 					album: c.name,
 					author: c.author,
 					date: c.release_date
@@ -85,11 +119,11 @@ class SongBoard extends React.Component {
 	}
 
 	renderSongs(){
-		console.log("button was clicked")
-		console.log("current location")
-		console.log(window.location.hostname)
-		console.log("state befor render");
-		console.log(this.state);
+		//console.log("button was clicked")
+		//console.log("current location")
+		//console.log(window.location.hostname)
+		console.log("this befor render");
+		console.log(this);
 	  axios
 	  .get("http://" + window.location.hostname + ":8000/song/")
 	  .then(response => {
@@ -127,11 +161,11 @@ class SongBoard extends React.Component {
 	          <div className="directory">
 							<div className="btn-group btn-group-toggle" data-toggle="buttons">
 							  <label className="btn btn-primary active" onClick={this.renderSongs.bind(this)}>
-							    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked={true} />
+							    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked={this.state.song_set[0].songName !== "noName"}  />
 										Songs
 							  </label>
-							  <label className="btn btn-primary">
-							    <input type="radio" name="options" id="option2" autoComplete="off" />
+							  <label className="btn btn-primary" onClick={this.renderAlbums.bind(this)}>
+							    <input type="radio" name="options" id="option2" autoComplete="off" defaultChecked={this.state.song_set[0].songName === "noName"} />
 										Album
 							  </label>
 							</div>
