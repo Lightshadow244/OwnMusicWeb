@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './bootstrap.css';
 import './index.css';
 
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
@@ -80,9 +80,10 @@ class AvailableDatalist extends React.Component {
   }
 }
 
-AvailableDatalist.propTypes = {
+
+/*AvailableDatalist.propTypes = {
   song_set: PropTypes.array.isRequired
-};
+};*/
 
 class SongBoard extends React.Component {
 	state = {
@@ -149,7 +150,6 @@ class SongBoard extends React.Component {
 
 	componentDidMount() {
 		this.renderSongs();
-
 	}
 
   render() {
@@ -160,12 +160,12 @@ class SongBoard extends React.Component {
 					<div className="col-lg-8 bg-primary">
 	          <div className="directory">
 							<div className="btn-group btn-group-toggle" data-toggle="buttons">
-							  <label className="btn btn-primary active" onClick={this.renderSongs.bind(this)}>
-							    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked={this.state.song_set[0].songName !== "noName"}  />
+							  <label className="btn btn-secondary active" onClick={this.renderSongs.bind(this)}>
+							    <input type="radio" name="options" id="option1" autoComplete="off" checked />
 										Songs
 							  </label>
-							  <label className="btn btn-primary" onClick={this.renderAlbums.bind(this)}>
-							    <input type="radio" name="options" id="option2" autoComplete="off" defaultChecked={this.state.song_set[0].songName === "noName"} />
+							  <label className="btn btn-secondary" onClick={this.renderAlbums.bind(this)}>
+							    <input type="radio" name="options" id="option2" autoComplete="off" checked/*defaultChecked={this.state.song_set[0].songName === "noName"}*/ />
 										Album
 							  </label>
 							</div>
