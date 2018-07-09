@@ -12,6 +12,7 @@ admin.site.register(Album, PlayerAdmin)
 
 class PlaylistInLine(admin.TabularInline):
     model = Playlist.songlist.through
+    
 @admin.register(Playlist)
 class PlaylistAdmin(admin.ModelAdmin):
     inlines=(PlaylistInLine,)

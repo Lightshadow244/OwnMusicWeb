@@ -20,8 +20,13 @@ class AlbumSerializer(serializers.ModelSerializer):
         model = Album
         fields = ('id', 'name', 'author', 'release_date', 'song_set')
 
+class LiteSongSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ('id', 'name')
+
 class PlaylistSerializer(serializers.ModelSerializer):
-    #songlist_set = SongSerializer(many=True, read_only=True)
+    songlist = LiteSongSerializer(many=True, read_only=True)
     class Meta:
         model = Playlist
         fields = ('id', 'name', 'songlist')
