@@ -16,10 +16,9 @@ class AvailableDatalist extends React.Component {
     console.log(this.props)
     var tableValues = []
 		var table = []
-    if(this.props.song_set.length !== 0){
-			if(this.props.song_set[0].songName === "noName"){
-				console.log("!!!!!NONAME is true!!!!")
-				tableValues = this.props.song_set.map(c =>
+    if(this.props.data_list.length !== 0){
+			if(this.props.data_list[0]['typ'] === 0){
+				tableValues = this.props.data_list.map(c =>
 	        <tr key={"row-" + c.album}>
 	          <td className="listenEintrag">{c.album}</td>
 	          <td className="listenEintrag">{c.author}</td>
@@ -38,9 +37,9 @@ class AvailableDatalist extends React.Component {
 		        </tbody>
 		      </table>
 
-			}else{
+			}else if(this.props.data_list[0]['typ'] === 1){
 				console.log("!!!!!NONAME is not true!!!!")
-				tableValues = this.props.song_set.map(c =>
+				tableValues = this.props.data_list.map(c =>
 	        <tr key={"row-" + c.songName}>
 	          <td className="listenEintrag">{c.songName}</td>
 	          <td className="listenEintrag">{c.album}</td>
@@ -60,8 +59,25 @@ class AvailableDatalist extends React.Component {
 		          {tableValues}
 		        </tbody>
 		      </table>
-			}
-
+			}else if(this.props.data_list[0]['typ'] === 2){
+				console.log("!!!!!NONAME is not true!!!!")
+				tableValues = this.props.data_list.map(c =>
+	        <tr key={"row-" + c.name}>
+	          <td className="listenEintrag">{c.name}</td>
+	          <td className="listenEintrag">{c.songs}</td>
+	        </tr>
+	      )
+				table =
+					<table className="table-striped">
+		        <tbody>
+		          <tr>
+		            <th>Playlist</th>
+		            <th>Songs</th>
+		          </tr>
+		          {tableValues}
+		        </tbody>
+		      </table>
+      }
     }else{
 			console.log("loading...")
       tableValues[0] = <tr key="loading"><td>loading...</td></tr>
@@ -88,7 +104,7 @@ class AvailableDatalist extends React.Component {
 
 class SongBoard extends React.Component {
 	state = {
-	  song_set: [0:{name:"none", album:"none", author:"none"}],
+	  data_list: [0:{name:"none", album:"none", author:"none"}],
 	};
 
 	renderAlbums(){
@@ -100,9 +116,9 @@ class SongBoard extends React.Component {
 		axios
 		.get("http://" + window.location.hostname + ":8000/album/")
 		.then(response => {
-			const song_set = response.data.map(c => {
+			const data_list = response.data.map(c => {
 				return{
-					songName: "noName",
+					typ: 0,
 					album: c.name,
 					author: c.author,
 					date: c.release_date
@@ -110,7 +126,7 @@ class SongBoard extends React.Component {
 			});
 
 			const newState = Object.assign({}, this.state, {
-						song_set: song_set
+						data_list: data_list
 			});
 			this.setState(newState);
 			console.log("state after api request")
@@ -129,8 +145,9 @@ class SongBoard extends React.Component {
 	  axios
 	  .get("http://" + window.location.hostname + ":8000/song/")
 	  .then(response => {
-	    const song_set2 = response.data.map(c => {
+	    const data_list = response.data.map(c => {
 	      return{
+          typ: 1,
 					songName: c.name,
 	        album: c.album,
 	        author: "c.author",
@@ -139,7 +156,49 @@ class SongBoard extends React.Component {
 	    });
 
 	    const newState = Object.assign({}, this.state, {
-	          song_set: song_set2
+	          data_list: data_list
+	    });
+	    this.setState(newState);
+	    console.log("state after api request")
+	    console.log(this.state)
+
+	  })
+	  .catch(error => console.log(error));
+	}
+  renderPlaylist(){
+		//console.log("button was clicked")
+		//console.log("current location")
+		//console.log(window.location.hostname)
+		console.log("this befor render");
+		console.log(this);
+	  axios
+	  .get("http://" + window.location.hostname + ":8000/playlist/")
+	  .then(response => {
+	    const data_list = response.data.map(c => {
+        switch(c.songlist.length){
+          case 0:
+            var s = ''
+            break;
+          case 1:
+            var s = c.songlist[0]['name'] + ",... "
+            break;
+          case 2:
+            var s = c.songlist[0]['name'] + ", " + c.songlist[1]['name'] + ",... "
+            break;
+          case 3:
+            var s = c.songlist[0]['name'] + ", " + c.songlist[1]['name'] + ", " + c.songlist[2]['name'] + ",... "
+            break;
+        }
+	      return{
+          typ: 2,
+					name: c.name,
+	        songs: s,
+
+	      };
+	    });
+
+	    const newState = Object.assign({}, this.state, {
+	          data_list: data_list
 	    });
 	    this.setState(newState);
 	    console.log("state after api request")
@@ -169,9 +228,13 @@ class SongBoard extends React.Component {
 							    <input type="radio" name="options" id="option2" autoComplete="off" checked/*defaultChecked={this.state.song_set[0].songName === "noName"}*/ />
 										Album
 							  </label>
+                <label className="btn btn-secondary" onClick={this.renderPlaylist.bind(this)}>
+							    <input type="radio" name="options" id="option2" autoComplete="off" checked/*defaultChecked={this.state.song_set[0].songName === "noName"}*/ />
+										Playlist
+							  </label>
 							</div>
 	          </div>
-	          <AvailableDatalist song_set={this.state.song_set}/> {/*songs={this.state.contacts}*/}
+	          <AvailableDatalist data_list={this.state.data_list}/> {/*songs={this.state.contacts}*/}
 					</div>
 					<div className="playlist col-lg-4 bg-primary">
 						playlist
