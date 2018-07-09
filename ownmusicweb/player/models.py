@@ -13,6 +13,7 @@ class Album(models.Model):
     def give_release_date(self):
         return self.release_date
 
+
 class Song(models.Model):
     name = models.CharField(max_length=125)
     #foreign key create a field in Album song_set. To get all Songs from a Album use
@@ -20,6 +21,7 @@ class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, default=0)
     change_date = models.DateField(default=django.utils.timezone.now)
     audio_file = models.FileField()
+    #playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, default=0)
     def __str__(self):
         return self.name
     def give_album(self):
@@ -29,5 +31,10 @@ class Song(models.Model):
     def give_path(self):
         return self.audio_file
 
-
-
+class Playlist(models.Model):
+    name = models.CharField(max_length=125)
+    songlist = models.ManyToManyField(Song)
+    def __str__(self):
+        return self.name
+    def give_songlist(self):
+        return self.songlist

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from player.models import Album, Song
+from player.models import Album, Song, Playlist
 from rest_framework import viewsets
-from rest.serializers import UserSerializer, AlbumSerializer, SongSerializer
+from rest.serializers import UserSerializer, AlbumSerializer, SongSerializer, PlaylistSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -25,3 +25,9 @@ class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all().order_by('name')
     serializer_class = SongSerializer
 
+class PlaylistViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows playlist to be viewed or edited.
+    """
+    queryset = Playlist.objects.all().order_by('name')
+    serializer_class = PlaylistSerializer

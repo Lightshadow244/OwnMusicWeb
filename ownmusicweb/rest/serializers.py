@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from player.models import Album, Song
+from player.models import Album, Song, Playlist
 from rest_framework import serializers
 
 
@@ -19,3 +19,9 @@ class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = ('id', 'name', 'author', 'release_date', 'song_set')
+
+class PlaylistSerializer(serializers.ModelSerializer):
+    #songlist_set = SongSerializer(many=True, read_only=True)
+    class Meta:
+        model = Playlist
+        fields = ('id', 'name', 'songlist')
