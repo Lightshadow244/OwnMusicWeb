@@ -8,12 +8,34 @@ import './index.css';
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
-
+class CurrentPlaylist extends React.Component {
+  render(){
+    console.log("playlist and props")
+    console.log(this.props.playlist)
+    console.log(this.props)
+    return(<div>currentPlaylist</div>)
+  }
+}
 
 class AvailableDatalist extends React.Component {
+setPlaylist(){
+  axios
+  .get("http://" + window.location.hostname + ":8000/playlist/" + 2)
+  .then(response => {
+    const currentPlaylist = response.data.songlist.map(c => {
+      return[
+          c.name,
+      ];
+    });
+    this.props.setPlaylistState(currentPlaylist);
+
+  })
+  .catch(error => console.log(error));
+}
+
   render() {
-    console.log("props during render songs")
-    console.log(this.props)
+    //console.log("props during render songs")
+    //console.log(this.props)
     var tableValues = []
 		var table = []
     if(this.props.data_list.length !== 0){
@@ -38,7 +60,7 @@ class AvailableDatalist extends React.Component {
 		      </table>
 
 			}else if(this.props.data_list[0]['typ'] === 1){
-				console.log("!!!!!NONAME is not true!!!!")
+				//console.log("!!!!!NONAME is not true!!!!")
 				tableValues = this.props.data_list.map(c =>
 	        <tr key={"row-" + c.songName}>
 	          <td className="listenEintrag">{c.songName}</td>
@@ -61,10 +83,12 @@ class AvailableDatalist extends React.Component {
 		      </table>
 			}else if(this.props.data_list[0]['typ'] === 2){
 				console.log("!!!!!NONAME is not true!!!!")
+        console.log(this)
 				tableValues = this.props.data_list.map(c =>
 	        <tr key={"row-" + c.name}>
 	          <td className="listenEintrag">{c.name}</td>
 	          <td className="listenEintrag">{c.songs}</td>
+            <td><button onClick={this.setPlaylist.bind(this)}>play</button></td>
 	        </tr>
 	      )
 				table =
@@ -73,13 +97,14 @@ class AvailableDatalist extends React.Component {
 		          <tr>
 		            <th>Playlist</th>
 		            <th>Songs</th>
+                <th></th>
 		          </tr>
 		          {tableValues}
 		        </tbody>
 		      </table>
       }
     }else{
-			console.log("loading...")
+			//console.log("loading...")
       tableValues[0] = <tr key="loading"><td>loading...</td></tr>
 
 			table =
@@ -90,8 +115,8 @@ class AvailableDatalist extends React.Component {
 				</table>
     }
 
-    console.log("table nach bearbeitung")
-    console.log(table)
+    //console.log("table nach bearbeitung")
+    //console.log(table)
 
     return(table)
   }
@@ -106,6 +131,18 @@ class SongBoard extends React.Component {
 	state = {
 	  data_list: [0:{name:"none", album:"none", author:"none"}],
 	};
+
+
+  setPlaylistState(playlist){
+    console.log(playlist)
+
+    const newState = Object.assign({}, this.state, {
+          currentPlaylist: playlist
+    });
+    this.setState(newState)
+    console.log("playlistState")
+    console.log(this.state)
+  }
 
 	renderAlbums(){
 		//console.log("button was clicked")
@@ -185,7 +222,7 @@ class SongBoard extends React.Component {
           case 2:
             var s = c.songlist[0]['name'] + ", " + c.songlist[1]['name'] + ",... "
             break;
-          case 3:
+          default:
             var s = c.songlist[0]['name'] + ", " + c.songlist[1]['name'] + ", " + c.songlist[2]['name'] + ",... "
             break;
         }
@@ -234,10 +271,10 @@ class SongBoard extends React.Component {
 							  </label>
 							</div>
 	          </div>
-	          <AvailableDatalist data_list={this.state.data_list}/> {/*songs={this.state.contacts}*/}
+	          <AvailableDatalist data_list={this.state.data_list} setPlaylistState={this.setPlaylistState.bind(this)}/> {/*songs={this.state.contacts}*/}
 					</div>
 					<div className="playlist col-lg-4 bg-primary">
-						playlist
+						<CurrentPlaylist playlist={this.state.currentPlaylist} />
 	        </div>
         </div>
       </div>
