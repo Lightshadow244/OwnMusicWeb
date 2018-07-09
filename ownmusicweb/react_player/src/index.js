@@ -16,7 +16,7 @@ class AvailableDatalist extends React.Component {
     console.log(this.props)
     var tableValues = []
 		var table = []
-    if(this.props.song_set[0] !== 0){
+    if(this.props.song_set.length !== 0){
 			if(this.props.song_set[0].songName === "noName"){
 				console.log("!!!!!NONAME is true!!!!")
 				tableValues = this.props.song_set.map(c =>
@@ -88,7 +88,7 @@ class AvailableDatalist extends React.Component {
 
 class SongBoard extends React.Component {
 	state = {
-	  song_set: [0:{name:"none", album:"none", author:"none"}]
+	  song_set: [0:{name:"none", album:"none", author:"none"}],
 	};
 
 	renderAlbums(){
