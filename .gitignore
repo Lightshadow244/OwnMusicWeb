@@ -106,3 +106,4 @@ ENV/
 
 node_modules/
 migrations/
+media/
