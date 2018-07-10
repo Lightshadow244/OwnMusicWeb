@@ -8,6 +8,7 @@ import './index.css';
 import ReactAudioPlayer from 'react-audio-player';
 import axios from "axios";
 
+
 class CurrentPlaylist extends React.Component {
   render(){
     var r = []
@@ -19,7 +20,7 @@ class CurrentPlaylist extends React.Component {
     if(this.props.playlist !== undefined && this.props.playlist.length >= 0){
       tableValues = this.props.playlist.map(c =>
         <tr key={c.id}>
-          <td className="listenEintrag">{c.name}</td>
+          <td className="listenEintrag h6">{c.name}</td>
         </tr>
       )
 
@@ -29,7 +30,7 @@ class CurrentPlaylist extends React.Component {
               Current Playlist
             </div>
             <div className="card-body">
-              <table className="table-striped">
+              <table className="table table-striped fit">
                 <tbody>
                 {tableValues}
 
@@ -37,7 +38,13 @@ class CurrentPlaylist extends React.Component {
               </table>
             </div>
           </div>
-          <div className="jumbotron">Queue</div>
+          <div className="card text-white bg-primary mb-3">
+            <div className="card-header">
+              Queue
+            </div>
+            <div className="card-body">
+            </div>
+          </div>
         </div>
     }else{
       r=<div className="right-block">
@@ -46,13 +53,19 @@ class CurrentPlaylist extends React.Component {
               Current Playlist
             </div>
             <div className="card-body">
-              <table className="table-striped">
+              <table className="table table-striped fit">
                 <tbody>
                 </tbody>
               </table>
             </div>
           </div>
-          <div className="jumbotron">Queue</div>
+          <div className="card text-white bg-primary mb-3">
+            <div className="card-header">
+              Queue
+            </div>
+            <div className="card-body">
+            </div>
+          </div>
         </div>
 
     }
@@ -73,9 +86,13 @@ setPlaylist(c){
       };
     });
     this.props.setPlaylistState(currentPlaylist);
+    this.props.playSong(currentPlaylist[0].id)
 
   })
   .catch(error => console.log(error));
+
+
+
 }
 
   render() {
@@ -93,7 +110,7 @@ setPlaylist(c){
 	        </tr>
 				)
 				r =
-					<table className="table-striped">
+					<table className="table table-striped table-bordered fit">
 		        <tbody>
 		          <tr>
 		            <th>Album</th>
@@ -115,7 +132,7 @@ setPlaylist(c){
 	        </tr>
 	      )
 				r =
-					<table className="table-striped">
+					<table className="table table-striped fit">
 		        <tbody>
 		          <tr>
 		            <th>Songname</th>
@@ -132,12 +149,12 @@ setPlaylist(c){
 				tableValues = this.props.data_list.map(c =>
 	        <tr key={c.id}>
 	          <td className="listenEintrag">{c.name}</td>
-	          <td className="listenEintrag">{c.songs}</td>
-            <td><button onClick={this.setPlaylist.bind(this) } value={c.id}>play</button></td>
+	          <td className="listenEintrag">{c.songs} </td>
+            <td className="fit"><button onClick={this.setPlaylist.bind(this) } value={c.id}>play</button></td>
 	        </tr>
 	      )
 				r =
-					<table className="table-striped">
+					<table className="table table-striped table-bordered fit">
 		        <tbody>
 		          <tr>
 		            <th>Playlist</th>
@@ -317,7 +334,7 @@ class SongBoard extends React.Component {
 							  </label>
 							</div>
 	          </div>
-	          <AvailableDatalist data_list={this.state.data_list} setPlaylistState={this.setPlaylistState.bind(this)}/> {/*songs={this.state.contacts}*/}
+	          <AvailableDatalist data_list={this.state.data_list} setPlaylistState={this.setPlaylistState.bind(this)} playSong={this.props.playSong.bind(this)}/> {/*songs={this.state.contacts}*/}
 					</div>
 					<div className="playlist col-lg-4 bg-primary">
 						<CurrentPlaylist playlist={this.state.currentPlaylist} />
@@ -330,25 +347,49 @@ class SongBoard extends React.Component {
 
 class Player extends React.Component {
   render() {
-    return(
-      <ReactAudioPlayer
-        src="my_audio_file.ogg"
+    console.log("bitte spiel sound")
+    if(this.props.song_id !== undefined){
+      var r = <ReactAudioPlayer
+        src={"http://localhost:8000/player/" + this.props.song_id}
         autoPlay
         controls
       />
-    )
+      console.log(typeof(this.props.song_id))
+    }else{
+      var r = <ReactAudioPlayer
+        src=""
+        autoPlay
+        controls
+      />
+    }
+    return(r)
   }
 }
 
 class Site extends React.Component {
+
+  playSong(id){
+    console.log("play song:" + id)
+    const newState = Object.assign({}, this.state, {
+          song_id: id
+    });
+    this.setState(newState);
+  }
+
   render() {
+    var song_id
+    if(this.state !== null){
+      song_id = this.state.song_id
+    }
+    console.log(song_id)
+
     return (
       <div className="site">
         <div className="player">
-          <Player />
+          <Player song_id={song_id}/>
         </div>
         <div>
-          <SongBoard />
+          <SongBoard playSong={this.playSong.bind(this)} />
         </div>
       </div>
     )
