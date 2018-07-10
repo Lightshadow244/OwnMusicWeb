@@ -10,22 +10,67 @@ import axios from "axios";
 
 class CurrentPlaylist extends React.Component {
   render(){
+    var r = []
+    var tableValues = []
     console.log("playlist and props")
     console.log(this.props.playlist)
     console.log(this.props)
-    return(<div>currentPlaylist</div>)
+
+    if(this.props.playlist !== undefined && this.props.playlist.length >= 0){
+      tableValues = this.props.playlist.map(c =>
+        <tr key={c.id}>
+          <td className="listenEintrag">{c.name}</td>
+        </tr>
+      )
+
+      r=<div className="right-block">
+          <div className="card text-white bg-primary mb-3">
+            <div className="card-header">
+              Current Playlist
+            </div>
+            <div className="card-body">
+              <table className="table-striped">
+                <tbody>
+                {tableValues}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="jumbotron">Queue</div>
+        </div>
+    }else{
+      r=<div className="right-block">
+          <div className="card text-white bg-primary mb-3">
+            <div className="card-header">
+              Current Playlist
+            </div>
+            <div className="card-body">
+              <table className="table-striped">
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="jumbotron">Queue</div>
+        </div>
+
+    }
+
+    return(r)
   }
 }
 
 class AvailableDatalist extends React.Component {
-setPlaylist(){
+setPlaylist(c){
   axios
-  .get("http://" + window.location.hostname + ":8000/playlist/" + 2)
+  .get("http://" + window.location.hostname + ":8000/playlist/" + c.target.value)
   .then(response => {
     const currentPlaylist = response.data.songlist.map(c => {
-      return[
-          c.name,
-      ];
+      return{
+          name: c.name,
+          id: c.id
+      };
     });
     this.props.setPlaylistState(currentPlaylist);
 
@@ -37,7 +82,7 @@ setPlaylist(){
     //console.log("props during render songs")
     //console.log(this.props)
     var tableValues = []
-		var table = []
+		var r = []
     if(this.props.data_list.length !== 0){
 			if(this.props.data_list[0]['typ'] === 0){
 				tableValues = this.props.data_list.map(c =>
@@ -47,7 +92,7 @@ setPlaylist(){
 	          <td className="listenEintrag">{c.date}</td>
 	        </tr>
 				)
-				table =
+				r =
 					<table className="table-striped">
 		        <tbody>
 		          <tr>
@@ -69,7 +114,7 @@ setPlaylist(){
 	          <td className="listenEintrag">{c.date}</td>
 	        </tr>
 	      )
-				table =
+				r =
 					<table className="table-striped">
 		        <tbody>
 		          <tr>
@@ -82,16 +127,16 @@ setPlaylist(){
 		        </tbody>
 		      </table>
 			}else if(this.props.data_list[0]['typ'] === 2){
-				console.log("!!!!!NONAME is not true!!!!")
-        console.log(this)
+				//console.log("!!!!!NONAME is not true!!!!")
+        //console.log(this)
 				tableValues = this.props.data_list.map(c =>
-	        <tr key={"row-" + c.name}>
+	        <tr key={c.id}>
 	          <td className="listenEintrag">{c.name}</td>
 	          <td className="listenEintrag">{c.songs}</td>
-            <td><button onClick={this.setPlaylist.bind(this)}>play</button></td>
+            <td><button onClick={this.setPlaylist.bind(this) } value={c.id}>play</button></td>
 	        </tr>
 	      )
-				table =
+				r =
 					<table className="table-striped">
 		        <tbody>
 		          <tr>
@@ -107,7 +152,7 @@ setPlaylist(){
 			//console.log("loading...")
       tableValues[0] = <tr key="loading"><td>loading...</td></tr>
 
-			table =
+			r =
 				<table className="table-striped">
 					<tbody>
 						{tableValues}
@@ -118,7 +163,7 @@ setPlaylist(){
     //console.log("table nach bearbeitung")
     //console.log(table)
 
-    return(table)
+    return(r)
   }
 }
 
@@ -134,14 +179,14 @@ class SongBoard extends React.Component {
 
 
   setPlaylistState(playlist){
-    console.log(playlist)
+    //console.log(playlist)
 
     const newState = Object.assign({}, this.state, {
           currentPlaylist: playlist
     });
     this.setState(newState)
-    console.log("playlistState")
-    console.log(this.state)
+    //console.log("playlistState")
+    //console.log(this.state)
   }
 
 	renderAlbums(){
@@ -166,8 +211,8 @@ class SongBoard extends React.Component {
 						data_list: data_list
 			});
 			this.setState(newState);
-			console.log("state after api request")
-			console.log(this.state)
+			//console.log("state after api request")
+			//console.log(this.state)
 
 		})
 		.catch(error => console.log(error));
@@ -177,8 +222,8 @@ class SongBoard extends React.Component {
 		//console.log("button was clicked")
 		//console.log("current location")
 		//console.log(window.location.hostname)
-		console.log("this befor render");
-		console.log(this);
+		//console.log("this befor render");
+		//console.log(this);
 	  axios
 	  .get("http://" + window.location.hostname + ":8000/song/")
 	  .then(response => {
@@ -196,8 +241,8 @@ class SongBoard extends React.Component {
 	          data_list: data_list
 	    });
 	    this.setState(newState);
-	    console.log("state after api request")
-	    console.log(this.state)
+	    //console.log("state after api request")
+	    //console.log(this.state)
 
 	  })
 	  .catch(error => console.log(error));
@@ -206,8 +251,8 @@ class SongBoard extends React.Component {
 		//console.log("button was clicked")
 		//console.log("current location")
 		//console.log(window.location.hostname)
-		console.log("this befor render");
-		console.log(this);
+		//console.log("this befor render");
+		//console.log(this);
 	  axios
 	  .get("http://" + window.location.hostname + ":8000/playlist/")
 	  .then(response => {
@@ -228,6 +273,7 @@ class SongBoard extends React.Component {
         }
 	      return{
           typ: 2,
+          id: c.id,
 					name: c.name,
 	        songs: s,
 
@@ -238,8 +284,8 @@ class SongBoard extends React.Component {
 	          data_list: data_list
 	    });
 	    this.setState(newState);
-	    console.log("state after api request")
-	    console.log(this.state)
+	    //console.log("state after api request")
+	    //console.log(this.state)
 
 	  })
 	  .catch(error => console.log(error));
