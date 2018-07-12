@@ -6,16 +6,22 @@ import './index.css';
 
 //import PropTypes from "prop-types";
 import ReactAudioPlayer from 'react-audio-player';
-import axios from "axios";
+import fetch from 'isomorphic-fetch';
 
+class AudioPlayer extends ReactAudioPlayer{
+  onEnded(e){
+    console.log("Musik ist gestoppt")
+  }
+
+}
 
 class CurrentPlaylist extends React.Component {
   render(){
     var r = []
     var tableValues = []
-    console.log("playlist and props")
-    console.log(this.props.playlist)
-    console.log(this.props)
+    //console.log("playlist and props")
+    //console.log(this.props.playlist)
+    //console.log(this.props)
 
     if(this.props.playlist !== undefined && this.props.playlist.length >= 0){
       tableValues = this.props.playlist.map(c =>
@@ -75,18 +81,46 @@ class CurrentPlaylist extends React.Component {
 }
 
 class AvailableDatalist extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+  }
+
+
+  handleChangePlaylist(event){
+    this.setState({value: event.target.value});
+  }
+
+  createPlaylist(){
+    var data = JSON.stringify({"name": this.state.value})
+    var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5', 'Content-Type': 'application/json'}
+
+    fetch("http://" + window.location.hostname + ":8000/playlist/", {
+  	  method: 'POST',
+  	  headers: header,
+  	  body: data
+  	}).then(response => {
+      console.log(response)
+      this.props.renderPlaylist()
+    }).catch(error => console.log(error));
+  }
+
 setPlaylist(c){
-  axios
-  .get("http://" + window.location.hostname + ":8000/playlist/" + c.target.value)
-  .then(response => {
-    const currentPlaylist = response.data.songlist.map(c => {
+  var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5',}
+  fetch("http://" + window.location.hostname + ":8000/playlist/" + c.target.value, {
+    method:'GET',
+    headers: header
+  }).then(results => {
+    return results.json()
+  }).then(data => {
+    const currentPlaylist = data.songlist.map(c => {
       return{
           name: c.name,
           id: c.id
       };
     });
     this.props.setPlaylistState(currentPlaylist);
-    this.props.playSong(currentPlaylist[0].id)
+    this.props.setSongInState(currentPlaylist, 0);
 
   })
   .catch(error => console.log(error));
@@ -144,8 +178,7 @@ setPlaylist(c){
 		        </tbody>
 		      </table>
 			}else if(this.props.data_list[0]['typ'] === 2){
-				//console.log("!!!!!NONAME is not true!!!!")
-        //console.log(this)
+				//Playlist
 				tableValues = this.props.data_list.map(c =>
 	        <tr key={c.id}>
 	          <td className="listenEintrag">{c.name}</td>
@@ -154,16 +187,30 @@ setPlaylist(c){
 	        </tr>
 	      )
 				r =
-					<table className="table table-striped table-bordered fit">
-		        <tbody>
-		          <tr>
-		            <th>Playlist</th>
-		            <th>Songs</th>
-                <th></th>
-		          </tr>
-		          {tableValues}
-		        </tbody>
-		      </table>
+          <div>
+  					<table className="table table-striped table-bordered fit">
+  		        <tbody>
+  		          <tr>
+  		            <th>Playlist</th>
+  		            <th>Songs</th>
+                  <th></th>
+  		          </tr>
+  		          {tableValues}
+  		        </tbody>
+  		      </table>
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col form-group">
+                  <input type="text" className="form-control" id="createNewPlaylist" aria-describedby="newPlaylist" placeholder="new Playlist" value={this.state.value} onChange={this.handleChangePlaylist.bind(this)}/>
+                  <small id="emailHelp" className="form-text text-muted">Create new Playlist</small>
+                </div>
+                <div className="col">
+                  <button className="btn btn-primary" onClick={this.createPlaylist.bind(this)}>create</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
       }
     }else{
 			//console.log("loading...")
@@ -190,10 +237,14 @@ setPlaylist(c){
 };*/
 
 class SongBoard extends React.Component {
-	state = {
-	  data_list: [0:{name:"none", album:"none", author:"none"}],
-	};
+  constructor(props) {
+    super(props);
+  	this.state={data_list: [0:{name:"none", album:"none", author:"none"}]};
+  }
 
+  update(){
+    console.log("update")
+  }
 
   setPlaylistState(playlist){
     //console.log(playlist)
@@ -207,44 +258,44 @@ class SongBoard extends React.Component {
   }
 
 	renderAlbums(){
-		//console.log("button was clicked")
-		//console.log("current location")
-		//console.log(window.location.hostname)
-		//console.log("state befor render");
-		//console.log(this);
-		axios
-		.get("http://" + window.location.hostname + ":8000/album/")
-		.then(response => {
-			const data_list = response.data.map(c => {
+    var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5',}
+
+    fetch("http://" + window.location.hostname + ":8000/album/", {
+      method:'GET',
+      headers: header
+    }).then(results => {
+      return results.json()
+    }).then(data => {
+      console.log("data")
+			console.log(data)
+      const data_list = data.map(c => {
 				return{
 					typ: 0,
 					album: c.name,
 					author: c.author,
 					date: c.release_date
 				};
-			});
+      });
 
 			const newState = Object.assign({}, this.state, {
 						data_list: data_list
 			});
 			this.setState(newState);
-			//console.log("state after api request")
-			//console.log(this.state)
 
 		})
 		.catch(error => console.log(error));
 	}
 
 	renderSongs(){
-		//console.log("button was clicked")
-		//console.log("current location")
-		//console.log(window.location.hostname)
-		//console.log("this befor render");
-		//console.log(this);
-	  axios
-	  .get("http://" + window.location.hostname + ":8000/song/")
-	  .then(response => {
-	    const data_list = response.data.map(c => {
+    var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5',}
+
+    fetch("http://" + window.location.hostname + ":8000/song/", {
+      method:'GET',
+      headers: header
+    }).then(results => {
+      return results.json()
+    }).then(data => {
+      const data_list = data.map(c => {
 	      return{
           typ: 1,
 					songName: c.name,
@@ -253,27 +304,30 @@ class SongBoard extends React.Component {
 	        date: "c.release_date"
 	      };
 	    });
-
-	    const newState = Object.assign({}, this.state, {
-	          data_list: data_list
-	    });
-	    this.setState(newState);
-	    //console.log("state after api request")
-	    //console.log(this.state)
-
-	  })
-	  .catch(error => console.log(error));
+      const newState = Object.assign({}, this.state, {
+           data_list: data_list
+     });
+     this.setState(newState);
+    })
+    .catch(error => console.log(error));
 	}
+
   renderPlaylist(){
 		//console.log("button was clicked")
 		//console.log("current location")
 		//console.log(window.location.hostname)
-		//console.log("this befor render");
-		//console.log(this);
-	  axios
-	  .get("http://" + window.location.hostname + ":8000/playlist/")
-	  .then(response => {
-	    const data_list = response.data.map(c => {
+		console.log("state befor render");
+		console.log(this.state);
+
+    var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5',}
+
+    fetch("http://" + window.location.hostname + ":8000/playlist/", {
+      method:'GET',
+      headers: header
+    }).then(results => {
+      return results.json()
+    }).then(data => {
+      const data_list = data.map(c => {
         switch(c.songlist.length){
           case 0:
             var s = ''
@@ -295,17 +349,14 @@ class SongBoard extends React.Component {
 	        songs: s,
 
 	      };
-	    });
-
-	    const newState = Object.assign({}, this.state, {
+      });
+      const newState = Object.assign({}, this.state, {
 	          data_list: data_list
 	    });
 	    this.setState(newState);
-	    //console.log("state after api request")
-	    //console.log(this.state)
 
-	  })
-	  .catch(error => console.log(error));
+    })
+    .catch(error => console.log(error));
 	}
 
 	componentDidMount() {
@@ -334,8 +385,8 @@ class SongBoard extends React.Component {
 							  </label>
 							</div>
 	          </div>
-	          <AvailableDatalist data_list={this.state.data_list} setPlaylistState={this.setPlaylistState.bind(this)} playSong={this.props.playSong.bind(this)}/> {/*songs={this.state.contacts}*/}
-					</div>
+	          <AvailableDatalist data_list={this.state.data_list} setPlaylistState={this.setPlaylistState.bind(this)} setSongInState={this.props.setSongInState.bind(this)} renderPlaylist={this.renderPlaylist.bind(this)}/> {/*songs={this.state.contacts}*/}
+          </div>
 					<div className="playlist col-lg-4 bg-primary">
 						<CurrentPlaylist playlist={this.state.currentPlaylist} />
 	        </div>
@@ -347,14 +398,13 @@ class SongBoard extends React.Component {
 
 class Player extends React.Component {
   render() {
-    console.log("bitte spiel sound")
-    if(this.props.song_id !== undefined){
-      var r = <ReactAudioPlayer
-        src={"http://localhost:8000/player/" + this.props.song_id}
-        autoPlay
-        controls
-      />
-      console.log(typeof(this.props.song_id))
+    if(this.props.playlist !== undefined && this.props.currentSongPositon < this.props.playlist.length){
+      console.log("state in render")
+      console.log(this.props)
+      //########################hier ansetzen wenn position === -1 dann nnormal rendern
+    //console.log("bitte spiel sound")
+      var r = <ReactAudioPlayer src={"http://localhost:8000/player/" + this.props.playlist[this.props.currentSongPositon].id} autoPlay controls onEnded={this.props.nextSongInState} />
+      //console.log(typeof(this.props.song_id))
     }else{
       var r = <ReactAudioPlayer
         src=""
@@ -368,28 +418,43 @@ class Player extends React.Component {
 
 class Site extends React.Component {
 
-  playSong(id){
-    console.log("play song:" + id)
+  nextSongInState(){
+    console.log("vergleich von playlist und aktueller song")
+    console.log(this.state.currentPlaylist.length)
+    console.log(this.state.currentSongPositon)
+
     const newState = Object.assign({}, this.state, {
-          song_id: id
+          currentSongPositon: this.state.currentSongPositon + 1
+    });
+    this.setState(newState);
+  }
+
+  setSongInState(playlist, currentSongPositon){
+    //console.log("play song:" + id)
+    const newState = Object.assign({}, this.state, {
+          currentPlaylist: playlist,
+          currentSongPositon: currentSongPositon
     });
     this.setState(newState);
   }
 
   render() {
-    var song_id
+    var playlist
+    var currentSongPositon
     if(this.state !== null){
-      song_id = this.state.song_id
+      playlist = this.state.currentPlaylist
+      currentSongPositon = this.state.currentSongPositon
     }
-    console.log(song_id)
+    console.log("site this")
+    console.log(currentSongPositon)
 
     return (
       <div className="site">
         <div className="player">
-          <Player song_id={song_id}/>
+          <Player playlist={playlist} currentSongPositon={currentSongPositon} nextSongInState={this.nextSongInState.bind(this)}/>
         </div>
         <div>
-          <SongBoard playSong={this.playSong.bind(this)} />
+          <SongBoard setSongInState={this.setSongInState.bind(this)} />
         </div>
       </div>
     )
