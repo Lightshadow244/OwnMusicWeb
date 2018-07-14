@@ -8,7 +8,30 @@ import './index.css';
 import ReactAudioPlayer from 'react-audio-player';
 import fetch from 'isomorphic-fetch';
 
+class Alert extends React.Component {
+  render(){
+    var alertText = []
+    alertText = <div className="alert alert-dismissible alert-success" hidden={this.props.hidden}>
+      <button type="button" className="close" onClick={this.props.hideAlert.bind(this)}>&times;</button>
+      <strong>{this.props.alertText}</strong>
+    </div>
+    return(alertText)
+  }
+}
+
 class BootsModal extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {alertText: "",hidden: true};
+  }
+
+  hideAlert(){
+    this.setState({alertText: "",hidden: true})
+    console.log("hide")
+  }
+  setAlert(s){
+    this.setState({alertText: s,hidden: false})
+  }
 
   addToPlaylist(c){
     var data = JSON.stringify({"playlist_id": c.target.value, "song_id": this.props.id})
@@ -21,6 +44,10 @@ class BootsModal extends React.Component {
   	  body: data
   	}).then(response => {
       console.log(response)
+      console.log("data")
+      console.log(data)
+      console.log(JSON.parse(data)['playlist_id'])
+      this.setAlert(JSON.parse(data)['playlist_id'])
     }).catch(error => console.log(error));
   }
 
@@ -73,6 +100,7 @@ class BootsModal extends React.Component {
               </div>
             </div>
           </div>
+          <Alert alertText={this.state.alertText} hidden={this.state.hidden} hideAlert={this.hideAlert.bind(this)}/>
         </div>
       )
   }
@@ -310,6 +338,7 @@ class SongBoard extends React.Component {
   }
 
 
+
   showBootsModal(id, typ, c){
     var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5',}
 
@@ -484,7 +513,7 @@ class SongBoard extends React.Component {
 						<CurrentPlaylist playlist={this.state.currentPlaylist} />
 	        </div>
         </div>
-        <BootsModal id={this.state.id} typ={this.state.typ} modalList={this.state.modalList} />
+        <BootsModal id={this.state.id} typ={this.state.typ} modalList={this.state.modalList}/>
       </div>
     )
   }
