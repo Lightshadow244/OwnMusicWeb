@@ -26,10 +26,6 @@ class LiteSongSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 class PlaylistSerializer(serializers.ModelSerializer):
-
-    def addToPlaylist():
-        print("test")
-
     songlist = LiteSongSerializer(many=True, read_only=True)
     class Meta:
         model = Playlist

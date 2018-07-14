@@ -11,17 +11,17 @@ import fetch from 'isomorphic-fetch';
 class BootsModal extends React.Component {
 
   addToPlaylist(c){
-    //var data = JSON.stringify({"name": this.state.value})
+    var data = JSON.stringify({"playlist_id": c.target.value, "song_id": this.props.id})
     var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5', 'Content-Type': 'application/json'}
     console.log("hello from addtoplaylist")
-    console.log(c)
-    /*fetch("http://" + window.location.hostname + ":8000/playlist/", {
-  	  method: 'POST',
+    console.log(data)
+    fetch("http://" + window.location.hostname + ":8000/api/addToPlaylist/", {
+  	  method: 'PUT',
   	  headers: header,
   	  body: data
   	}).then(response => {
-      //console.log(response)
-    }).catch(error => console.log(error));*/
+      console.log(response)
+    }).catch(error => console.log(error));
   }
 
   render(){
@@ -33,7 +33,7 @@ class BootsModal extends React.Component {
         return(
           <tr key={c.id}>
             <td>{c.name}</td>
-            <td className="fit"><button onClick={this.addToPlaylist.bind(this)}>add</button></td>
+            <td className="fit"><button onClick={this.addToPlaylist.bind(this)} value={c.id}>add</button></td>
           </tr>
         )
       })
