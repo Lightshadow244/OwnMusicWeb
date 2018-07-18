@@ -9,6 +9,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import fetch from 'isomorphic-fetch';
 
 class Alert extends React.Component {
+
   render(){
     var alertText = []
     alertText = <div className="alert alert-dismissible alert-success" hidden={this.props.hidden}>
@@ -115,11 +116,21 @@ class CurrentPlaylist extends React.Component {
     //console.log(this.props)
 
     if(this.props.playlist !== undefined && this.props.playlist.length >= 0){
-      tableValues = this.props.playlist.map(c =>
-        <tr key={c.id}>
-          <td className="listenEintrag h6">{c.name}</td>
-        </tr>
-      )
+      tableValues = this.props.playlist.map(c =>{
+				var r2 = []
+
+				if(this.props.currentSongId === c.id){
+					r2 = <tr key={c.id} className="table-dark">
+	          <td className="listenEintrag h6">{c.name}</td>
+	        </tr>
+				}else{
+					r2 = <tr key={c.id}>
+	          <td className="listenEintrag h6">{c.name}</td>
+	        </tr>
+				}
+
+        return(r2)
+      })
 
       r=<div className="right-block">
           <div className="card text-white bg-primary mb-3">
@@ -127,7 +138,7 @@ class CurrentPlaylist extends React.Component {
               Current Playlist
             </div>
             <div className="card-body">
-              <table className="table table-striped table-bordered fit">
+              <table className="table table-bordered fit">
                 <tbody>
                 {tableValues}
 
@@ -140,6 +151,7 @@ class CurrentPlaylist extends React.Component {
               Queue
             </div>
             <div className="card-body">
+
             </div>
           </div>
         </div>
@@ -337,7 +349,9 @@ class SongBoard extends React.Component {
   	this.state={data_list: [0:{name:"none", album:"none", author:"none"}],modalList:[0:{id:-1}],id: -1, typ: 0};
   }
 
-
+	/*setCurrentSong(id){
+		this.setState={currentSongId: id}
+	}*/
 
   showBootsModal(id, typ, c){
     var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5',}
@@ -510,7 +524,7 @@ class SongBoard extends React.Component {
 	          <AvailableDatalist data_list={this.state.data_list} setPlaylistState={this.setPlaylistState.bind(this)} setSongInState={this.props.setSongInState.bind(this)} renderPlaylist={this.renderPlaylist.bind(this)} showBootsModal={this.showBootsModal.bind(this)}/> {/*songs={this.state.contacts}*/}
           </div>
 					<div className="playlist col-lg-4 bg-primary">
-						<CurrentPlaylist playlist={this.state.currentPlaylist} />
+						<CurrentPlaylist playlist={this.state.currentPlaylist} currentSongId={this.props.currentSongId} />
 	        </div>
         </div>
         <BootsModal id={this.state.id} typ={this.state.typ} modalList={this.state.modalList}/>
@@ -524,10 +538,9 @@ class Player extends React.Component {
     if(this.props.playlist !== undefined && this.props.currentSongPositon < this.props.playlist.length){
       console.log("state in render")
       console.log(this.props)
-      //########################hier ansetzen wenn position === -1 dann nnormal rendern
     //console.log("bitte spiel sound")
-      var r = <ReactAudioPlayer src={"http://localhost:8000/player/" + this.props.playlist[this.props.currentSongPositon].id} autoPlay controls onEnded={this.props.nextSongInState} />
-      //console.log(typeof(this.props.song_id))
+			var r = <ReactAudioPlayer src={"http://localhost:8000/player/" + this.props.playlist[this.props.currentSongPositon].id} autoPlay controls onEnded={this.props.nextSongInState(this.props.playlist[this.props.currentSongPositon].id)} />
+			//console.log(typeof(this.props.song_id))
     }else{
       var r = <ReactAudioPlayer
         src=""
@@ -540,23 +553,30 @@ class Player extends React.Component {
 }
 
 class Site extends React.Component {
+	constructor(props) {
+    super(props);
+		this.state={currentSongId: -1};
 
-  nextSongInState(){
+	}
+  nextSongInState(id){
     //console.log("vergleich von playlist und aktueller song")
     //console.log(this.state.currentPlaylist.length)
     //console.log(this.state.currentSongPositon)
 
     const newState = Object.assign({}, this.state, {
-          currentSongPositon: this.state.currentSongPositon + 1
+          currentSongPositon: this.state.currentSongPositon + 1,
+					currentSongId: id
     });
     this.setState(newState);
   }
+
 
   setSongInState(playlist, currentSongPositon){
     //console.log("play song:" + id)
     const newState = Object.assign({}, this.state, {
           currentPlaylist: playlist,
-          currentSongPositon: currentSongPositon
+          currentSongPositon: currentSongPositon,
+					currentSongId: playlist[currentSongPositon].id
     });
     this.setState(newState);
   }
@@ -568,16 +588,18 @@ class Site extends React.Component {
       playlist = this.state.currentPlaylist
       currentSongPositon = this.state.currentSongPositon
     }
+		console.log("state in site")
+		console.log(this)
     //console.log("site this")
     //console.log(currentSongPositon)
 
     return (
       <div className="site">
         <div className="player">
-          <Player playlist={playlist} currentSongPositon={currentSongPositon} nextSongInState={this.nextSongInState.bind(this)}/>
+          <Player playlist={playlist} currentSongPositon={currentSongPositon} nextSongInState={this.nextSongInState.bind(this)} />
         </div>
         <div>
-          <SongBoard setSongInState={this.setSongInState.bind(this)} />
+          <SongBoard setSongInState={this.setSongInState.bind(this)} currentSongId={this.state.currentSongId}/>
         </div>
       </div>
     )
