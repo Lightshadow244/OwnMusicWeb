@@ -4,20 +4,32 @@ A website where you can manage and listen your own music.
 
 
 # Getting started
-### clone repo  
+## clone repo  
 `git clone https://github.com/Lightshadow244/OwnMusicWeb.git`
 
-### Django
+## Installation
 Django is the backend, database and rest-api. The rest api is accessable with the browser.  
-#### Install
-install virtualenv
+### Install Requirments
+#### Archlinux:  
+install virtualenv  
+`pacman -S python`  
+`python -m venv venv`  
+`source venv/bin/activate` 
 
-create virtualenv  
-`virtualenv /home/user/ENV`
+install nodejs  
+`pacman -S nodejs`  
+`pacman -S npm`
 
-activate virtualenv  
-`source /home/user/ENV/bin/activate`
+#### Ubuntu
+install virtualenv  
+`apt-get install python-virtualenv`  
+`virtualenv ENV`  
+`source /home/user/ENV/bin/activate`  
 
+install nodejs  
+`apt-get install nodejs`
+
+### Setting up Django  
 update pip  
 `pip install --upgrade pip`
 
@@ -31,7 +43,12 @@ do some pyhton Magic
 start server  
 `python ownmusicweb/manage.py runserver 0.0.0.0:8000`  
 
-navigate to player in browser`0.0.0.0:8000`
+navigate to player in browser`0.0.0.0:8000`  
+
+### Setting up Nodejs
+`cd OwnMusicWeb/ownmusicweb/react-player/`  
+`npm install`  
+`npm start`
 
 ### Use Docker
 This container supports only the rest_api for the moment. The React frondend ist not included  
