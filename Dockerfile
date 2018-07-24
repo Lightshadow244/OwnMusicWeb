@@ -1,22 +1,33 @@
 FROM ubuntu:latest
 
-WORKDIR /ownmusicweb
+# WORKDIR /ownmusicweb
 
 RUN ["apt-get", "update"]
-RUN ["apt-get", "install", "-y", "python-pip", "nodejs", "npm"]
+RUN ["apt-get", "install", "-y", "python-pip", "nodejs", "npm", "git"]
 
 RUN ["pip", "install", "--upgrade", "pip"]
-#RUN ["pip", "install", "-r", "/ownmusicweb/requirements.txt"]
 
-#RUN ["python", "/ownmusicweb/manage.py", "migrate"]
+RUN git clone https://github.com/Lightshadow244/OwnMusicWeb.git 
 
-#RUN ["python", "/ownmusicweb/manage.py", "runserver", "0.0.0.0:8000"]
+WORKDIR /OwnMusicWeb
 
-WORKDIR /ownmusicweb/ownmusicweb/react_player
-RUN ["npm", "install"]
-RUN ["npm", "start"]
+RUN ["pip", "install", "-r", "/OwnMusicWeb/ownmusicweb/requirements.txt"]
 
-ADD .init.sh /
+RUN ["python", "/OwnMusicWeb/ownmusicweb/manage.py", "makemigrations"]
+RUN ["python", "/OwnMusicWeb/ownmusicweb/manage.py", "migrate"]
 
-#ENTRYPOINT pip install -r /ownmusicweb/requirements.txt && python manage.py makemigrations player && python /ownmusicweb/manage.py migrate && python /ownmusicweb/manage.py runserver 0.0.0.0:8000
-ENTRYPOINT bash /.init.sh
+WORKDIR /OwnMusicWeb/ownmusicweb/react_player
+
+# RUN ["npm", "install"]
+
+# RUN ["python", "/OwnMusicWeb/ownmusicweb/manage.py", "runserver", "0.0.0.0:8000"]
+
+# this is not working because you cant open file during building from volume
+# WORKDIR /ownmusicweb/react_player
+# RUN ["npm", "install"]
+# RUN ["npm", "start"]
+
+# ADD .init.sh /
+
+# ENTRYPOINT cd /OwnMusicWeb/ownmusicweb/react_player/ && npm install && npm start && python /OwnMusicWeb/ownmusicweb/manage.py runserver 0.0.0.0:8000
+#ENTRYPOINT bash /.init.sh

@@ -4,8 +4,8 @@ services:
    build: .
    container_name: ownmusicweb
    hostname: ownmusicweb
-   volumes:
-       - ./ownmusicweb:/ownmusicweb
+#   volumes:
+#       - ./ownmusicweb:/ownmusicweb
    ports:
     - 8000:8000
     - 3000:3000
