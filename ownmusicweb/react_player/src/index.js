@@ -210,6 +210,8 @@ class AvailableDatalist extends React.Component {
   }
 
 setPlaylist(c){
+	console.log("setplaylist")
+	console.log(c.target.value)
   var header = {'Authorization': 'Basic YWRtaW46K2RhcmtvcmJpdDk5',}
   fetch("http://" + window.location.hostname + ":8000/playlist/" + c.target.value, {
     method:'GET',
@@ -541,14 +543,44 @@ class Player extends React.Component {
       //console.log("state in render")
       //console.log(this.props)
     console.log("bitte spiel sound")
-			var r = <ReactAudioPlayer src={"http://localhost:8000/player/" + this.props.playlist[this.props.currentSongPositon].id} autoPlay controls onEnded={this.props.nextSongInState.bind(this)} /> //, this.props.playlist[this.props.currentSongPositon + 1].id
+			var r = <div>
+								<ReactAudioPlayer src={"http://localhost:8000/player/" + this.props.playlist[this.props.currentSongPositon].id} autoPlay controls onEnded={this.props.nextSongInState.bind(this)} />
+								<div><button type="button" className="btn btn-secondary btn-sm" onClick=""><IcoPlay /></button></div>
+							</div>; //, this.props.playlist[this.props.currentSongPositon + 1].id
 			console.log(r)
     }else{
-      var r = <ReactAudioPlayer
-        src=""
-        autoPlay
-        controls
-      />
+      var r =	<div className="table container-fluid">
+	        			<div className="row">
+									<div className="col-md-auto">
+										<ReactAudioPlayer src="" />
+										<div className="btn-group btn-group-toggle player-button-group" data-toggle="buttons">
+											<label className="btn btn-secondary btn-sm" onClick="">
+												<input type="radio" name="options" id="option1" autoComplete="off" />
+													<IcoPlay />
+											</label>
+											<label className="btn btn-secondary btn-sm" onClick="">
+												<input type="radio" name="options" id="option2" autoComplete="off" />
+													<IcoPlus />
+											</label>
+										</div>
+									</div>
+									<div className="col">
+										<input className="music_Slider" type="range" min="0" max="100" value="30"/>
+									</div>
+									<div className="col-md-auto">
+										<div className="btn-group btn-group-toggle player-button-group" data-toggle="buttons">
+											<label className="btn btn-secondary btn-sm" onClick="">
+												<input type="radio" name="options" id="option1" autoComplete="off" />
+													<IcoPlay />
+											</label>
+											<label className="btn btn-secondary btn-sm" onClick="">
+												<input type="radio" name="options" id="option2" autoComplete="off" />
+													<IcoPlus />
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
     }
     return(r)
   }
