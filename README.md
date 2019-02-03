@@ -87,7 +87,21 @@ create alias
 `sudo -H pip3 install --upgrade pip`
 #### windows
 pip install python_magic_bin-0.4.14-py2.py3-none-win32.whl  
-https://github.com/ahupp/python-magic#dependencies
+https://github.com/ahupp/python-magic#dependencies    
+
+# PI
+## music data on external HDD  
+formate HDD  
+`fdsik /dev/sdx`  
+  
+delete partition  
+`:d`  
+  
+create new partition  
+`:n`  
+  
+formate  
+`mkfs.ntfs /dev/sdx`
 
 # Useful links
 https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html  
