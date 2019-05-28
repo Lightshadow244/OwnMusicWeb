@@ -25,15 +25,15 @@ class SongBoard extends React.Component {
   render() {
     var r
 
-//var for songs
+    //var for songs
     var table
     var tableValues
 
-//var for albums
+    //var for albums
 
-//var for playlists
+    //var for playlists
 
-//set list of avaiable songs/albums/playlists
+    //set list of avaiable songs/albums/playlists
     switch(this.props.SbStatus){
       case 0:
         tableValues = this.props.songs.map(c => {
@@ -80,7 +80,7 @@ class SongBoard extends React.Component {
 
 //=============================================
 
-//containe the player
+//contains the player
 class Player extends React.Component {
   constructor(props) {
     super(props);
@@ -97,7 +97,7 @@ class Player extends React.Component {
 
 //=============================================
 
-//contains the root 
+//contains the root
 class Site extends React.Component {
 	constructor(props) {
     super(props);
@@ -105,7 +105,7 @@ class Site extends React.Component {
     this.getSongs(0)
 	}
 
-// get all songs, if ALbumID=0 get all songs, if ALbumID!=0 get songs of one album
+  // get all songs, if ALbumID=0 get all songs, if ALbumID!=0 get songs of one album
   getSongs(AlbumID){
     if(AlbumID === 0)
       fetch("http://" + database + ":8000/song/", {
