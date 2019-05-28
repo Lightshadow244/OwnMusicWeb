@@ -19,9 +19,9 @@ def scan_for_music(p):
 				#Has the file an album Tag? No? Then the album is 'unbekannt'
 
 				if af.tag.album == None:
-					af.tag.album = 'Unbekannt'
+					af.tag.album = u'Unbekannt'
 				if af.tag.artist == None:
-					af.tag.artist = 'Unbekannt'
+					af.tag.artist = u'Unbekannt'
 				#print('Album: ' + af.tag.album)
 				#print('Artist: ' + af.tag.artist)
 				#print('Date: ' + str(af.tag.getBestDate()))
