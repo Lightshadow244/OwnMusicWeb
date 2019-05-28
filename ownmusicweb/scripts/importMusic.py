@@ -17,7 +17,7 @@ def scan_for_music(p):
 				af = eyed3.load(file_path)
 				#print(file_change_date)
 				#Has the file an album Tag? No? Then the album is 'unbekannt'
-				
+
 				if af.tag.album == None:
 					af.tag.album = 'Unbekannt'
 				if af.tag.artist == None:
@@ -37,11 +37,11 @@ def scan_for_music(p):
 						#print(file_album_date)
 						c.execute("insert into player_album(name, author, release_date) values(?,?,?)", (af.tag.album, af.tag.artist, file_album_date,))
 						conn.commit()
-						
+
 						c.execute("select * from player_album")
 						print('AlbumDatenbank')
 						print(c.fetchone())
-						
+
 					c.execute('select id from player_album where name=?', (af.tag.album,))
 					db_album_id = c.fetchone()
 					c.execute("insert into player_song(name, audio_file, change_date, album_id) values(?,?,?,?)", (file, file_path, file_change_date, db_album_id[0],))
@@ -75,6 +75,8 @@ def scan_for_music(p):
 						sub_db_change_date = c.fetchone()
 						if sub_folder_change_date != sub_db_change_date:
 							scan_for_music(sub_path)
+	else:
+		print('wrong path')
 
 scan_for_music(path)
 conn.close()
