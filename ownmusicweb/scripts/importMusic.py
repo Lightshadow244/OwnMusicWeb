@@ -60,21 +60,22 @@ def scan_for_music(p):
 					else:
 						print('Song ' + file + 'already exists')
 				#look change from folder and compare it with first song from folder in db
-				for sub_folder in os.listdir(p):
-					sub_path = os.path.join(p, sub_folder)
-					if os.path.isdir(sub_path):
-						sub_folder_change_date = datetime.datetime.fromtimestamp(os.path.getmtime(sub_path)).strftime('%Y-%m-%d')
-						#get first file change date
-						for file in os.listdir(sub_path):
-							if file.endswith(".mp3"):
-								sub_file_path = os.path.join(sub_path, file)
-								sub_file_name = file
-							break
+		for sub_folder in os.listdir(p):
+			sub_path = os.path.join(p, sub_folder)
+			print(sub_path)
+			if os.path.isdir(sub_path):
+				sub_folder_change_date = datetime.datetime.fromtimestamp(os.path.getmtime(sub_path)).strftime('%Y-%m-%d')
+				#get first file change date
+				for file in os.listdir(sub_path):
+					if file.endswith(".mp3"):
+						sub_file_path = os.path.join(sub_path, file)
+						sub_file_name = file
+					break
 
-						c.execute('select change_date from player_song where name =?', (sub_file_name,))#get change date from first song
-						sub_db_change_date = c.fetchone()
-						if sub_folder_change_date != sub_db_change_date:
-							scan_for_music(sub_path)
+				c.execute('select change_date from player_song where name =?', (sub_file_name,))#get change date from first song
+				sub_db_change_date = c.fetchone()
+				if sub_folder_change_date != sub_db_change_date:
+					scan_for_music(sub_path)
 	else:
 		print('wrong path')
 
