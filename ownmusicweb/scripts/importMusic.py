@@ -3,7 +3,7 @@ import sqlite3, eyed3, os, datetime
 eyed3.log.setLevel("ERROR")
 
 #path = 'C:/Users/Richii/Music'
-path = '/home/user/music'
+path = '/home/pi/OwnMusicWebData/music'
 
 conn=sqlite3.connect('../db.sqlite3')
 c = conn.cursor()
