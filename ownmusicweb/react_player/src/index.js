@@ -32,9 +32,11 @@ class SongBoard extends React.Component {
     //var for albums
 
     //var for playlists
+    var currentPlaylist
+    var currentPlaylistName
 
     //set list of avaiable songs/albums/playlists
-    switch(this.props.SbStatus){
+    switch(this.props.sbStatus){
       case 0:
         tableValues = this.props.songs.map(c => {
           return(
@@ -58,6 +60,18 @@ class SongBoard extends React.Component {
         break;
     }
 
+    //set currentPlaylist
+    if(this.props.currentPlaylist !== undefined) {
+      currentPlaylist = this.props.currentPlaylist[0].map(c => {
+        return(
+          <tr key={c.id}>
+            <td>{c.songName}</td>
+          </tr>
+        )
+      })
+      currentPlaylistName = this.props.currentPlaylist[2]
+    }
+
     r =
       <div className="row">
         <div className="col-sm-8">
@@ -66,9 +80,14 @@ class SongBoard extends React.Component {
           </table>
         </div>
         <div className="col-sm-4">
-          <div className ="h-50">
-            CurrentPlaylist
-          </div>
+          <table className="table table-striped table-bordered fit h-50">
+            <tbody>
+              <tr>
+                <th>CurrentPlaylist: {currentPlaylistName}</th>
+              </tr>
+              {currentPlaylist}
+            </tbody>
+          </table>
           <div className ="h-50">
             Queue
           </div>
@@ -101,8 +120,11 @@ class Player extends React.Component {
 class Site extends React.Component {
 	constructor(props) {
     super(props);
-    this.state={songs: [{name:"none", album:"none", author:"none"}], SbStatus: 0}
+    this.state={songs: [{name:"none", album:"none", author:"none"}],
+      sbStatus: 0
+    }
     this.getSongs(0)
+    this.getPlaylist(1)
 	}
 
   // get all songs, if ALbumID=0 get all songs, if ALbumID!=0 get songs of one album
@@ -132,6 +154,29 @@ class Site extends React.Component {
       .catch(error => console.log(error));
   }
 
+  //get all Songs from a Playlist
+  getPlaylist(playlistID){
+    fetch("http://" + database + ":8000/playlist/" + playlistID + "/", {
+      method:'GET',
+      headers: header
+    }).then(results => {
+      return results.json()
+    }).then(data => {
+      const data_list = data.songlist.map(c => {
+        return{
+          typ: 2,
+          id: c.id,
+          songName: c.name
+        };
+      });
+      const newState = Object.assign({}, this.state, {
+           currentPlaylist: [data_list, data.id, data.name]
+     });
+     this.setState(newState);
+    })
+    .catch(error => console.log(error));
+  }
+
   render() {
     var playlist
     var currentSongPositon
@@ -145,7 +190,7 @@ class Site extends React.Component {
           <Player playlist={playlist} currentSongPositon={currentSongPositon}  />
         </div>
         <div>
-          <SongBoard getSongs={this.getSongs.bind(this)} songs={this.state.songs} SbStatus={this.state.SbStatus} />
+          <SongBoard getSongs={this.getSongs.bind(this)} songs={this.state.songs} sbStatus={this.state.sbStatus} currentPlaylist={this.state.currentPlaylist}  />
         </div>
       </div>
     )
