@@ -38,26 +38,77 @@ class SongBoard extends React.Component {
     //set list of avaiable songs/albums/playlists
     switch(this.props.sbStatus){
       case 0:
-        tableValues = this.props.songs.map(c => {
-          return(
-            <tr key={c.id}>
-              <td>{c.songName}</td>
-              <td>{c.album}</td>
-              <td>{c.author}</td>
-            </tr>
-          )
-        })
+          if(this.props.songs !== undefined){
+          tableValues = this.props.songs.map(c => {
+            return(
+              <tr key={c.id}>
+                <td>{c.songName}</td>
+                <td>{c.album}</td>
+                <td>{c.author}
+                  <div className="float-right">
+                    <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playSong.bind(this, c.id)} value={c.id}><IcoPlay /></button>
+                    <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playSong.bind(this, c.id)} value={c.id}><IcoPlus /></button>
+                  </div>
+                </td>
+              </tr>
+            )
+          })
 
-        table =
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Album</th>
-              <th>Author</th>
-            </tr>
-            {tableValues}
-          </tbody>
+          table =
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Album</th>
+                <th>Author</th>
+              </tr>
+              {tableValues}
+            </tbody>
+          }
         break;
+      case 1:
+        if(this.props.albums !== undefined){
+          tableValues = this.props.albums.map(c => {
+            return(
+              <tr key={c.id}>
+                <td>{c.albumName}</td>
+                <td>{c.date}</td>
+                <td>{c.author}</td>
+              </tr>
+            )
+          })
+
+          table =
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Datum</th>
+                <th>Author</th>
+              </tr>
+              {tableValues}
+            </tbody>
+          break;
+        }
+      case 2:
+        if(this.props.playlists !== undefined){
+          tableValues = this.props.playlists.map(c => {
+            return(
+              <tr key={c.id}>
+                <td>{c.playlistName}</td>
+                <td>{c.preview}</td>
+              </tr>
+            )
+          })
+
+          table =
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Preview</th>
+              </tr>
+              {tableValues}
+            </tbody>
+          break;
+        }
     }
 
     //set currentPlaylist
@@ -72,24 +123,44 @@ class SongBoard extends React.Component {
       currentPlaylistName = this.props.currentPlaylist[2]
     }
 
+    //set currentqueue
+
     r =
-      <div className="row">
-        <div className="col-sm-8">
-          <table className="table table-striped table-bordered fit">
-            {table}
-          </table>
+      <div>
+        <div className="row">
+          <div className="btn-group btn-group-toggle col-sm-8" data-toggle="buttons">
+            <label className="btn btn-secondary active" onClick={this.props.renderSongs.bind(this)}>
+              <input type="radio" name="options" id="option1" autoComplete="off" />
+                Songs
+            </label>
+            <label className="btn btn-secondary" onClick={this.props.renderAlbums.bind(this)}>
+              <input type="radio" name="options" id="option2" autoComplete="off" />
+                Album
+            </label>
+            <label className="btn btn-secondary" onClick={this.props.renderPlaylist.bind(this)}>
+              <input type="radio" name="options" id="option2" autoComplete="off" />
+                Playlist
+            </label>
+          </div>
         </div>
-        <div className="col-sm-4">
-          <table className="table table-striped table-bordered fit h-50">
-            <tbody>
-              <tr>
-                <th>CurrentPlaylist: {currentPlaylistName}</th>
-              </tr>
-              {currentPlaylist}
-            </tbody>
-          </table>
-          <div className ="h-50">
-            Queue
+        <div className="row">
+          <div className="col-sm-8">
+            <table className="table table-striped table-bordered fit">
+              {table}
+            </table>
+          </div>
+          <div className="col-sm-4">
+            <table className="table table-striped table-bordered fit h-50">
+              <tbody>
+                <tr>
+                  <th>CurrentPlaylist: {currentPlaylistName}</th>
+                </tr>
+                {currentPlaylist}
+              </tbody>
+            </table>
+            <div className ="h-50">
+              Queue
+            </div>
           </div>
         </div>
       </div>
@@ -177,6 +248,80 @@ class Site extends React.Component {
     .catch(error => console.log(error));
   }
 
+  getAlbums(){
+    fetch("http://" + database + ":8000/album/", {
+      method:'GET',
+      headers: header
+    }).then(results => {
+      return results.json()
+    }).then(data => {
+      const data_list = data.map(c => {
+        return{
+          typ: 2,
+          id: c.id,
+          albumName: c.name,
+          author: c.author,
+          date: c.release_date
+        };
+      });
+      const newState = Object.assign({}, this.state, {
+           albums: data_list
+     });
+     this.setState(newState);
+    })
+    .catch(error => console.log(error));
+  }
+
+  getPlaylists(){
+    fetch("http://" + database + ":8000/playlist/", {
+      method:'GET',
+      headers: header
+    }).then(results => {
+      return results.json()
+    }).then(data => {
+      const data_list = data.map(c => {
+
+        var pre = ""
+
+        for(var i = 0; i < c.songlist.length; i++){
+          if(i === 3) { break; }
+          pre = pre + c.songlist[i].name.substring(0, 8) + ", "
+        }
+
+        return{
+          typ: 3,
+          id: c.id,
+          playlistName: c.name,
+          preview: pre.substring(0, pre.length - 2)
+        };
+      });
+      const newState = Object.assign({}, this.state, {
+           playlists: data_list
+     });
+     this.setState(newState);
+    })
+    .catch(error => console.log(error));
+  }
+
+  //set state with song id which shoul be played
+  playSong(SongId){
+    this.setState({currentSongId: SongId});
+  }
+
+  renderSongs(){
+    this.setState({sbStatus: 0});
+  }
+
+  renderAlbums(){
+    this.setState({sbStatus: 1});
+    this.getAlbums()
+  }
+
+  renderPlaylist(){
+    this.setState({sbStatus: 2});
+    this.getPlaylists()
+  }
+
   render() {
     var playlist
     var currentSongPositon
@@ -187,10 +332,20 @@ class Site extends React.Component {
     return (
       <div className="site">
         <div className="player">
-          <Player playlist={playlist} currentSongPositon={currentSongPositon}  />
+          <Player playlist={playlist} currentSongPositon={currentSongPositon} currentSongId={this.state.currentSongId} />
         </div>
         <div>
-          <SongBoard getSongs={this.getSongs.bind(this)} songs={this.state.songs} sbStatus={this.state.sbStatus} currentPlaylist={this.state.currentPlaylist}  />
+          <SongBoard getSongs={this.getSongs.bind(this)}
+            songs={this.state.songs}
+            albums={this.state.albums}
+            playlists={this.state.playlists}
+            sbStatus={this.state.sbStatus}
+            currentPlaylist={this.state.currentPlaylist}
+            playSong={this.playSong.bind(this)}
+            renderSongs={this.renderSongs.bind(this)}
+            renderAlbums={this.renderAlbums.bind(this)}
+            renderPlaylist={this.renderPlaylist.bind(this)}
+          />
         </div>
       </div>
     )
