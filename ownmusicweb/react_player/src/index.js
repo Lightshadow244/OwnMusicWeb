@@ -338,7 +338,7 @@ class Site extends React.Component {
   }
 
   playNextSong(){
-    if(this.state.currentSongPositon + 1 <== this.state.currentPlaylist.length){
+    if(this.state.currentSongPositon + 1 <= this.state.currentPlaylist.length){
       var id = this.state.currentPlaylist[0][this.state.currentSongPositon + 1].id
       console.log(id)
       fetch("http://" + database + ":8000/song/" + id + "/", {
