@@ -47,9 +47,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -128,15 +128,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/'
 MEDIA_ROOT = (
-    os.path.join(BASE_DIR, 'media')
+    #os.path.join(BASE_DIR, 'media')
+    '/'
 )
 
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/home/user/music/',
+    '/home/pi/music/',
 ]
 
 REST_FRAMEWORK = {

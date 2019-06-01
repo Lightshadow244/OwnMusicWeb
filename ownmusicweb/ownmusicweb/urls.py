@@ -1,6 +1,8 @@
 from django.conf.urls import url, include
 from rest_framework import routers
 from rest import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 #Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -22,4 +24,4 @@ urlpatterns = [
     url(r'^api/', include('rest.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
