@@ -46,7 +46,7 @@ class SongBoard extends React.Component {
                 <td>{c.album}</td>
                 <td>{c.author}
                   <div className="float-right">
-                    <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playSong.bind(this, c.id)} value={c.id}><IcoPlay /></button>
+                    <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playSong.bind(this, c.id, this.props.songs)} value={c.id}><IcoPlay /></button>
                     <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playSong.bind(this, c.id)} value={c.id}><IcoPlus /></button>
                   </div>
                 </td>
@@ -178,9 +178,17 @@ class Player extends React.Component {
 
   render() {
     var r
-    r = <div>
-              <ReactAudioPlayer src={""} controls />
-            </div>;
+    console.log(this.props.path)
+    if(this.props.path !== undefined){
+      console.log(this.props.path)
+       r = <div>
+                <ReactAudioPlayer src={this.props.path} controls autoPlay onEnded={this.props.playNextSong.bind(this)} />
+              </div>;
+    }else{
+      r=  <div>
+            <ReactAudioPlayer src={""} controls />
+          </div>;
+    }
     return(r)
   }
 }
@@ -304,8 +312,51 @@ class Site extends React.Component {
   }
 
   //set state with song id which shoul be played
-  playSong(SongId){
-    this.setState({currentSongId: SongId});
+  playSong(SongId, playlist){
+    for(var i = 0; i < playlist.length;i++){
+      if(playlist[i].id === SongId){
+        fetch("http://" + database + ":8000/song/" + SongId + "/", {
+            method:'GET',
+            headers: header
+          }).then(results => {
+            return results.json()
+          }).then(data => {
+            const path = data.audio_file
+            const newState = Object.assign({}, this.state, {
+                 path: path,
+                 currentSongId: SongId,
+                 currentPlaylist:[playlist, -1, 'All Songs'],
+
+           });
+           this.setState(newState);
+          })
+          .catch(error => console.log(error));
+          this.setState({currentSongPositon: i})
+      }
+    }
+
+  }
+
+  playNextSong(){
+    if(this.state.currentSongPositon + 1 <== this.state.currentPlaylist.length){
+      var id = this.state.currentPlaylist[0][this.state.currentSongPositon + 1].id
+      console.log(id)
+      fetch("http://" + database + ":8000/song/" + id + "/", {
+          method:'GET',
+          headers: header
+        }).then(results => {
+          return results.json()
+        }).then(data => {
+          const path = data.audio_file
+          const newState = Object.assign({}, this.state, {
+               path: path,
+               currentSongId: id
+         });
+         this.setState(newState);
+        })
+        .catch(error => console.log(error));
+      }
+    //this.setState({currentSongId: SongId});
   }
 
   renderSongs(){
@@ -332,7 +383,7 @@ class Site extends React.Component {
     return (
       <div className="site">
         <div className="player">
-          <Player playlist={playlist} currentSongPositon={currentSongPositon} currentSongId={this.state.currentSongId} />
+          <Player path = {this.state.path} playNextSong = {this.playNextSong.bind(this)} />
         </div>
         <div>
           <SongBoard getSongs={this.getSongs.bind(this)}
