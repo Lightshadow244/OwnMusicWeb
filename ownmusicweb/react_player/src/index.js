@@ -153,7 +153,8 @@ class SongBoard extends React.Component {
             <table className="table table-striped table-bordered fit h-50">
               <tbody>
                 <tr>
-                  <th>CurrentPlaylist: {currentPlaylistName}</th>
+                  <th>CurrentPlaylist: {currentPlaylistName} <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.randomizeCurrentPlaylist.bind(this)}><IcoPlay /></button>
+                  </th>
                 </tr>
                 {currentPlaylist}
               </tbody>
@@ -359,6 +360,37 @@ class Site extends React.Component {
     //this.setState({currentSongId: SongId});
   }
 
+  randomizeCurrentPlaylist(){
+    var array = this.state.currentPlaylist[0]
+    var currentIndex = array.length, temporaryValue, randomIndex, currentSongPositon;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    for(var i = 0; i < array.length;i++){
+        if(this.state.currentSongId == array[i].id){
+          currentSongPositon = i
+          console.log(currentSongPositon)
+        }
+    }
+
+    this.setState({
+      currentPlaylist: [array, this.state.currentPlaylist[1], this.state.currentPlaylist[2]],
+      currentSongPositon: currentSongPositon
+    });
+  }
+
   renderSongs(){
     this.setState({sbStatus: 0});
   }
@@ -393,6 +425,7 @@ class Site extends React.Component {
             sbStatus={this.state.sbStatus}
             currentPlaylist={this.state.currentPlaylist}
             playSong={this.playSong.bind(this)}
+            randomizeCurrentPlaylist={this.randomizeCurrentPlaylist.bind(this)}
             renderSongs={this.renderSongs.bind(this)}
             renderAlbums={this.renderAlbums.bind(this)}
             renderPlaylist={this.renderPlaylist.bind(this)}
