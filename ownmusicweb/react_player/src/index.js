@@ -24,6 +24,8 @@ class SongBoard extends React.Component {
 
   render() {
     var r
+    var i
+    var s
 
     //var for songs
     var table
@@ -47,7 +49,7 @@ class SongBoard extends React.Component {
                 <td>{c.author}
                   <div className="float-right">
                     <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playSong.bind(this, c.id, this.props.songs)} value={c.id}><IcoPlay /></button>
-                    <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playSong.bind(this, c.id)} value={c.id}><IcoPlus /></button>
+                    <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.addQueue.bind(this, c.id)} value={c.id}><IcoPlus /></button>
                   </div>
                 </td>
               </tr>
@@ -94,7 +96,11 @@ class SongBoard extends React.Component {
             return(
               <tr key={c.id}>
                 <td>{c.playlistName}</td>
-                <td>{c.preview}</td>
+                <td>{c.preview}
+                  <div className="float-right">
+                    <button type="button" className="btn btn-secondary btn-sm" onClick={this.props.playPlaylist.bind(this, c.id)} value={c.id}><IcoPlay /></button>
+                  </div>
+                </td>
               </tr>
             )
           })
@@ -112,18 +118,37 @@ class SongBoard extends React.Component {
     }
 
     //set currentPlaylist
+    i = 0
+    console.log("new")
     if(this.props.currentPlaylist !== undefined) {
       currentPlaylist = this.props.currentPlaylist[0].map(c => {
-        return(
+
+
+        if(i == this.props.currentSongPositon){
+          s =
+          <tr className="bg-secondary" key={c.id}>
+            <td>{c.songName}</td>
+          </tr>
+        }else{
+          s =
           <tr key={c.id}>
             <td>{c.songName}</td>
           </tr>
-        )
+        }
+        i++
+
+        return(s)
       })
       currentPlaylistName = this.props.currentPlaylist[2]
     }
 
+
     //set currentqueue
+
+/*<label className="btn btn-secondary" onClick={this.props.renderAlbums.bind(this)}>
+   <input type="radio" name="options" id="option2" autoComplete="off" />
+     Album
+ </label>*/
 
     r =
       <div>
@@ -132,10 +157,6 @@ class SongBoard extends React.Component {
             <label className="btn btn-secondary active" onClick={this.props.renderSongs.bind(this)}>
               <input type="radio" name="options" id="option1" autoComplete="off" />
                 Songs
-            </label>
-            <label className="btn btn-secondary" onClick={this.props.renderAlbums.bind(this)}>
-              <input type="radio" name="options" id="option2" autoComplete="off" />
-                Album
             </label>
             <label className="btn btn-secondary" onClick={this.props.renderPlaylist.bind(this)}>
               <input type="radio" name="options" id="option2" autoComplete="off" />
@@ -179,9 +200,9 @@ class Player extends React.Component {
 
   render() {
     var r
-    console.log(this.props.path)
+    //console.log(this.props.path)
     if(this.props.path !== undefined){
-      console.log(this.props.path)
+      //console.log(this.props.path)
        r = <div>
                 <ReactAudioPlayer src={this.props.path} controls autoPlay onEnded={this.props.playNextSong.bind(this)} />
               </div>;
@@ -201,7 +222,8 @@ class Site extends React.Component {
 	constructor(props) {
     super(props);
     this.state={songs: [{name:"none", album:"none", author:"none"}],
-      sbStatus: 0
+      sbStatus: 0,
+      queue: []
     }
     this.getSongs(0)
     this.getPlaylist(1)
@@ -312,7 +334,7 @@ class Site extends React.Component {
     .catch(error => console.log(error));
   }
 
-  //set state with song id which shoul be played
+  //set state with song id which shoud be played
   playSong(SongId, playlist){
     for(var i = 0; i < playlist.length;i++){
       if(playlist[i].id === SongId){
@@ -339,25 +361,50 @@ class Site extends React.Component {
   }
 
   playNextSong(){
-    if(this.state.currentSongPositon + 1 <= this.state.currentPlaylist.length){
-      var id = this.state.currentPlaylist[0][this.state.currentSongPositon + 1].id
-      console.log(id)
-      fetch("http://" + database + ":8000/song/" + id + "/", {
-          method:'GET',
-          headers: header
-        }).then(results => {
-          return results.json()
-        }).then(data => {
-          const path = data.audio_file
-          const newState = Object.assign({}, this.state, {
-               path: path,
-               currentSongId: id
-         });
-         this.setState(newState);
-        })
-        .catch(error => console.log(error));
+    if(this.state.queue.length == 0){
+      if(this.state.currentSongPositon + 1 <= this.state.currentPlaylist[0].length){
+        var id = this.state.currentPlaylist[0][this.state.currentSongPositon + 1].id
+        //console.log(id)
+        fetch("http://" + database + ":8000/song/" + id + "/", {
+            method:'GET',
+            headers: header
+          }).then(results => {
+            return results.json()
+          }).then(data => {
+            const path = data.audio_file
+            const newState = Object.assign({}, this.state, {
+                 path: path,
+                 currentSongId: id
+           });
+           this.setState(newState);
+          })
+          .catch(error => console.log(error));
+        }
+      } else {
+        fetch("http://" + database + ":8000/song/" + this.state.queue[0].id + "/", {
+            method:'GET',
+            headers: header
+          }).then(results => {
+            return results.json()
+          }).then(data => {
+            const path = data.audio_file
+            const newState = Object.assign({}, this.state, {
+                 path: path,
+                 currentSongId: id,
+                 queue: this.state.queue.slice(1)
+           });
+           this.setState(newState);
+          })
+          .catch(error => console.log(error));
+
+
       }
-    //this.setState({currentSongId: SongId});
+    }
+
+
+  playPlaylist(id){
+    this.getPlaylist(id)
+    this.playSong(this.state.currentPlaylist[0][0].id, this.state.currentPlaylist[0])
   }
 
   randomizeCurrentPlaylist(){
@@ -405,6 +452,22 @@ class Site extends React.Component {
     this.getPlaylists()
   }
 
+  addQueue(SongId){
+    var queue = this.state.queue
+    var queueEntry
+
+    for(var i = 0;i < this.state.songs.length;i++){
+      if(SongId == this.state.songs[i].id){
+        console.log(this.state.songs[i].songName)
+        queueEntry = {id: SongId, songName: this.state.songs[i].songName, typ: this.state.songs[i].typ}
+        break;
+      }
+    }
+    queue.push(queueEntry)
+    console.log(queue)
+    this.setState({queue: queue});
+  }
+
   render() {
     var playlist
     var currentSongPositon
@@ -429,6 +492,9 @@ class Site extends React.Component {
             renderSongs={this.renderSongs.bind(this)}
             renderAlbums={this.renderAlbums.bind(this)}
             renderPlaylist={this.renderPlaylist.bind(this)}
+            currentSongPositon={this.state.currentSongPositon}
+            playPlaylist={this.playPlaylist.bind(this)}
+            addQueue={this.addQueue.bind(this)}
           />
         </div>
       </div>
