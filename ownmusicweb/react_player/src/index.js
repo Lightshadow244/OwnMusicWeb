@@ -119,7 +119,7 @@ class SongBoard extends React.Component {
 
     //set currentPlaylist
     i = 0
-    console.log("new")
+    //console.log("new")
     if(this.props.currentPlaylist !== undefined) {
       currentPlaylist = this.props.currentPlaylist[0].map(c => {
 
@@ -361,8 +361,10 @@ class Site extends React.Component {
   }
 
   playNextSong(){
+    console.log("queue " + this.state.queue.length)
+    console.log("currentPos " + (this.state.currentSongPositon + 1) + "<=" + "length " + this.state.currentPlaylist[0].length)
     if(this.state.queue.length == 0){
-      if(this.state.currentSongPositon + 1 <= this.state.currentPlaylist[0].length){
+      if(this.state.currentSongPositon + 1 < this.state.currentPlaylist[0].length){
         var id = this.state.currentPlaylist[0][this.state.currentSongPositon + 1].id
         //console.log(id)
         fetch("http://" + database + ":8000/song/" + id + "/", {
@@ -374,11 +376,15 @@ class Site extends React.Component {
             const path = data.audio_file
             const newState = Object.assign({}, this.state, {
                  path: path,
-                 currentSongId: id
+                 currentSongId: id,
+                 currentSongPositon: this.state.currentSongPositon + 1
            });
            this.setState(newState);
           })
           .catch(error => console.log(error));
+        } else{
+          this.setState({currentSongPositon: -1})
+          this.playNextSong()
         }
       } else {
         fetch("http://" + database + ":8000/song/" + this.state.queue[0].id + "/", {
