@@ -1,5 +1,5 @@
 # OwnMusicWeb
-A website where you can manage and listen your own music.
+A website where you can manage and listen your own music. This repository was a project to learn Django and ReactJS
 
 
 
